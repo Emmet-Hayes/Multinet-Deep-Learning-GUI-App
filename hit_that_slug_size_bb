@@ -1,0 +1,29 @@
+pip installs
+
+3 django - +pytz, sqlparse
+
+1 dj-database-url
+
+2 PyQt5 - PyQt5-sip
+
+1 numpy
+
+16 tensorflow -astor, termcolor, six, absl-py, mock, tensorflow-estimator, h5py, keras-applications, keras-preprocessing, protobuf, markdown, werkeuz, grpcio, tensorboard, gast
+
+1 opencv-python #37.4 mb
+
+1 Pillow
+
+1 scipy #30.2 mb
+
+3 soundfile - cffi, pycparser
+
+1 pydub
+
+1 pygame
+
+5 matplotlib - cycler, kiwisolver, pyparsing, python-dateutil
+
+85 magenta - pygments, colorama, decorator, wcwidth, prompt-toolkit, ipython-genutils, traitlets, pickleshare, parso, jedi, backcall, IPython, python-rtmidi, midi, pretty-midi, scipy, future, mir-eval, networkx, sonnet, wrapt, tqdm, promise, psutil, googleapis-common-protos, tensorflow-metadata, dill, idna, chardet, urllib3, certifi, requests, tensorflow-datasets, pygtrie, sortedcontainers, intervaltree, sk-video, mpmath, sympy, pyglet, gym, enum34, gin-config, pypng, tensorflow-probability, kfac, itsdangerous, MarkupSafe, Jinja2, click, flask, dopamine-rl, httplib2, uritemplate, cachetools, pyasn1, pyasn1-modules, rsa, google-auth, google-auth, httplib2, google-api-python-client, mesh-tensorflow, bz2file, oauth2client, greenlet, gevent, gunicorn, tensor2tensor, pandas, joblib, audioread, llvmlite, numba, resampy, scikit-learn, librosa, packaging, PyYAML, tornado, bokeh, sox, backports.weakref, backports.tempfile
+
+1 whitenoise

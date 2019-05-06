@@ -1,0 +1,13 @@
+{% load static %}
+    <head>
+        <title>HTML5 Tetris</title>
+        <link rel='stylesheet' href="{% static 'deep_surfer/tetris.css' %}" />
+    </head>
+    <body>
+        <audio id="clearsound" src="{% static 'deep_surfer/tetris/sound/pop.ogg' %}" preload="auto"></audio>
+        <canvas width='300' height='600'></canvas>
+        <button id="playbutton" onclick="playButtonClicked();">Play</button>
+        <script src="{% static 'deep_surfer/tetris/js/tetris.js' %}"></script>
+        <script src="{% static 'deep_surfer/tetris/js/controller.js' %}"></script>
+        <script src="{% static 'deep_surfer/tetris/js/render.js' %}"></script>
+    </body>

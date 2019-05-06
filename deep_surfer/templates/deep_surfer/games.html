@@ -1,0 +1,18 @@
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'deep_surfer/stylegame.css' %}">
+<script src="https://unpkg.com/@tensorflow/tfjs@1.0.4/dist/tf.js"></script>
+<script src="https://unpkg.com/@tensorflow-models/speech-commands"></script>
+<script src="https://unpkg.com/@tensorflow-models/mobilenet"></script>
+<script src="https://unpkg.com/@tensorflow-models/knn-classifier"></script>
+<h1>BAT HOUSE OPEN SOURCE VIDEO GAMES!!!!</h1>
+<div id="container" class="games">
+  <h2>Games</h2>
+  <p>Check out some fun browser games!</p>
+  <p><a href="chess">Play Chess</a></p>
+  <p><a href="2048">Play 2048</a></p>
+  <p><a href="tetris">Play Tetris</a></p>
+  <p><a href="{% static 'deep_surfer/mario/mario.html' %}">Play HTML Mario</a></p>
+  <p><a href="{% static 'deep_surfer/space-invaders/space-invaders.html' %}">Play Space Invaders</a></p>
+  <p><a href="{% static 'deep_surfer/js-racer/js-racer.html' %}">Play JS Racer</a></p>
+</div>

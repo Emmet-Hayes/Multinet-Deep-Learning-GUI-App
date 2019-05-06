@@ -1,0 +1,32 @@
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'deep_surfer/style.css' %}">
+
+<!--
+{% if latest_question_list %}
+    <ul>
+    {% for question in latest_question_list %}
+        <li><a href="{% url 'deep_surfer:detail' question.id %}">{{ question.question_text }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No polls are available.</p>
+{% endif %}
+<br/> -->
+<body>
+  <br/>
+  <p>Wanna play some fucking games bitch?</p>
+  <br/>
+  <h1><a href="games">GAMES</a></h1>
+  <br/>
+  <p>Try these cool deep learning widgets straight from your browser</p>
+  <br/>
+  <h1><a href="{% static 'deep_surfer/dlwidgets/dlwidgets.html' %}">TRY DEEP LEARNING</a></h1>
+  <!--<h1><a href="dlwidgets">TRY DEEP LEARNING</a></h1>-->
+  <br/>
+  <p>Wanna do some heavier deep learning with my python app?</p>
+  <br/>
+  <h1><strong>ITS CALLED DEEP_SURFER!</strong></h1>
+  <br/>
+  <h1><a href="mainapp">TRY IT</a></h1>
+</body>
