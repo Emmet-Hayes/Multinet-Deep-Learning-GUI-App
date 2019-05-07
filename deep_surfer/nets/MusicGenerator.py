@@ -9,6 +9,8 @@ from pydub import AudioSegment #
 from pydub.playback import play as dubPlay #play wav files
 import pygame #play midi files
 import numpy as np #cool math stuff
+import matplotlib
+matplotlib.use("Agg")
 import matplotlib.pyplot as plt #plot spectrograms and midi files
 #import magenta #magical music library headed by google
 #import magenta.music as mm
