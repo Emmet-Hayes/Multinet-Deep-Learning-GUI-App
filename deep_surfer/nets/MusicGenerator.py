@@ -9,9 +9,9 @@ from pydub import AudioSegment #
 from pydub.playback import play as dubPlay #play wav files
 import pygame #play midi files
 import numpy as np #cool math stuff
-import matplotlib
-matplotlib.use("Agg")
-import matplotlib.pyplot as plt #plot spectrograms and midi files
+#import matplotlib
+#matplotlib.use("Agg")
+#import matplotlib.pyplot as plt #plot spectrograms and midi files
 #import magenta #magical music library headed by google
 #import magenta.music as mm
 #from magenta.music.sequences_lib import concatenate_sequences
@@ -194,8 +194,8 @@ class MusicGenerator:
     sound.export(wav_file[:-4] + '16bitmono.wav', format="wav")
     sample_rate, samples = wavfile.read(wav_file[:-4] + '16bitmono.wav')
     frequencies, times, spectrogram = signal.spectrogram(samples, sample_rate)
-    plt.pcolormesh(times, frequencies, np.log(spectrogram))
-    plt.show()
+    #plt.pcolormesh(times, frequencies, np.log(spectrogram))
+    #plt.show()
 
   @staticmethod
   def play_music(music_file):

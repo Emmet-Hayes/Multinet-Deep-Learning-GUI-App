@@ -1,9 +1,9 @@
 import mido
 import numpy as np
-import matplotlib.pyplot as plt
-import matplotlib as mpl
-mpl.use("Agg")
-from matplotlib.colors import colorConverter
+#import matplotlib.pyplot as plt
+#import matplotlib as mpl
+#mpl.use("Agg")
+#from matplotlib.colors import colorConverter
 
 
 # inherit the origin mido class
