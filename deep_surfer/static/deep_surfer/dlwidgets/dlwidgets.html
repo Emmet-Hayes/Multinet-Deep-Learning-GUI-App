@@ -1,0 +1,56 @@
+
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/@tensorflow/tfjs@1.0.4/dist/tf.js"></script>
+    <script src="https://unpkg.com/@tensorflow-models/speech-commands"></script>
+    <script src="https://unpkg.com/@tensorflow-models/mobilenet"></script>
+    <script src="https://unpkg.com/@tensorflow-models/knn-classifier"></script>
+  </head>
+  <body>
+    
+    <div id="container" class="scc">
+      <h2>Sound Classifier</h2>
+      <p>this one will play with you based on what vowel and pitch you say it.</p>
+      <p>it shall soon learn to surpass you at every turn</p>
+      <p>~huehehueheuhehuhehehuehu~</p>
+      <button id="tone1" onmousedown="collect(0)" onmouseup="collect(null)">Tone 1</button>
+      <button id="tone2" onmousedown="collect(1)" onmouseup="collect(null)">Tone 2</button>
+      <button id="tone3" onmousedown="collect(2)" onmouseup="collect(null)">Tone 3</button>
+      <button id="tone4" onmousedown="collect(3)" onmouseup="collect(null)">Tone 4</button>
+      <button id="tone5" onmousedown="collect(4)" onmouseup="collect(null)">Tone 5</button>
+      <br/><br/>
+      <button id="train" onclick="train()">Train on Tones</button>
+      <br/><br/>
+      <button id="listen" onclick="listen()">Output based on Tones Collected</button>
+      <input type="range" id="output" min="0" max="10" step="0.1">
+      <div id="console"></div>
+    </div>
+    
+    <div id="container" class="wic">
+      <br/><br/>
+      <h2>Webcam Gesture/Image Controller</h2>
+      <p>train the robot on different gestures</p>
+      <p>or train it on different objects that you hold</p>
+      <p>or anything you want!</p>
+      <p>~fufufufufu~</p>
+      <br/><br/>
+      <button id='wicstart'>Turn on webcam</button>
+      <button id='wicstop'>Turn off webcam</button>
+      <br/>
+      <button id="class-a">Add Gesture A</button>
+      <button id="class-b">Add Gesture B</button>
+      <button id="class-c">Add Gesture C</button>
+      <button id="class-d">Add Gesture D</button>
+      <button id="class-e">Add Gesture E</button>
+      <br/>
+      <video autoplay playsinline muted id="webcam" width="480" height="440"></video>
+      <br/>
+      <div id="console"></div>
+      <br/>
+    </div>
+    <br/>
+    <script src="index.js"></script>
+
+  </body>
+</html>
