@@ -27,7 +27,8 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'not6w0zpy0&@#wj5naq&u=&)l3+9ri
 DEBUG = True
 #DEBUG = False
 #DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
-ALLOWED_HOSTS = ['salty-sands-81911.herokuapp.com']
+ALLOWED_HOSTS = ['salty-sands-81911.herokuapp.com',
+'localhost']
 
 
 # Application definition
