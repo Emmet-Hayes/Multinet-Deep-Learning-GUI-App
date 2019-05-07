@@ -1,1 +1,1 @@
-web: gunicorn deep_surfer.wsgi --log-file -
+web: gunicorn mnetwebsite.wsgi --log-file -
