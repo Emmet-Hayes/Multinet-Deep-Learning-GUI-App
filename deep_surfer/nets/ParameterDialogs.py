@@ -3,6 +3,8 @@
 
 from PyQt5.QtGui import QIcon #GUI importz bb
 from PyQt5.QtWidgets import QWidget, QPushButton, QInputDialog, QFormLayout, QLineEdit
+#from PyQt5.QtWebKit import QWebView
+
 
 class ImageClassifierParameterDialog(QWidget): #gui hyperparameters for image classifier retrainer
   def __init__(self, parent = None):

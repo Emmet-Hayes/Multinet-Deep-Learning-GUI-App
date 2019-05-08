@@ -2,20 +2,19 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.urls import reverse
 from .models import Choice, Question
-
-from deep_surfer.nets.MultinetWindow import MultinetWindow
-from PyQt5.QtWidgets import QApplication
+from deep_surfer.nets.ImageClassifier import ImageClassifier
+from deep_surfer.nets.ImageGenerator import ImageGenerator
+from deep_surfer.nets.DeepDream import DeepDream
+from deep_surfer.nets.TextGenerator import TextGenerator
+#from deep_surfer.nets.MultinetWindow import MultinetWindow
+#from PyQt5.QtWidgets import QApplication
 import sys
-#
-#
-#
+
 # THIS IS WHERE EVERYTHING GETS CALLED ON THE deep_surfer/mainapp/ page!!!!
-#
-#
 def mainapp(request):
-  app = QApplication(sys.argv)
-  labelWindow = MultinetWindow()
-  sys.exit(app.exec_())
+ # app = QApplication(sys.argv)
+#  labelWindow = MultinetWindow()
+#  sys.exit(app.exec_())
   return HttpResponse("Thanks for trying out my generator!\n")
 
 def games(request):
@@ -29,6 +28,48 @@ def twentyfourtyeight(request):
 
 def tetris(request):
   return render(request, 'deep_surfer/tetris.html')
+
+def netparams(request):
+  return render(request, 'deep_surfer/netparams.html')
+
+def runTG(request):
+  train_epochs = get_object_or_404(TextGenerator, pk=tg_epochs)
+  num_generate = get_object_or_404(TextGenerator, pk=tg_gen)
+  temperature = get_object_or_404(TextGenerator, pk=tg_temp)
+  TextGenerator.train_text_generator(self, train_epochs, num_generate, temperature,
+      trim_text, embedding_dim, step_size, seq_length, BATCH_SIZE)
+  return render(request, 'deep_surfer/netparams.html')
+
+
+def loadTG(request):
+  TextGenerator.run_text_generator(self,
+        num_generate, temperature, trim_text, embedding_dim,
+        seq_length, step_size)
+  return render(request, 'deep_surfer/netparams.html')
+
+def openIC(request):
+  ImageClassifier.run_image_classifier(self, False)
+  return render(request, 'deep_surfer/netparams.html')
+
+def openICAlt(request):
+  ImageClassifier.run_image_classifier(self, True)
+  return render(request, 'deep_surfer/netparams.html')
+
+def trainIC(request):
+  ImageClassifier.retrain_image_classifier(retrain_image_dir, self, True, training_steps, 
+      learn_rate, print_misclass, flip_l_r, rnd_crop, rnd_scale, rnd_brightness)
+  return render(request, 'deep_surfer/netparams.html')
+
+def trainIG(request):    
+  ImageGenerator.train(self, height, width, channel, batch_size, epoch, random_dim, learn_rate, 
+      clip_weights, d_iters, g_iters, save_ckpt_rate, save_img_rate)
+  return render(request, 'deep_surfer/netparams.html')
+
+def genDD(request):
+  DeepDream.run(self, dream_layer, naive_render_iter, naive_step,
+      deep_render_iter, deep_step, octave_number, octave_scaled, downsize, img_noise_size, 
+      imagenet_mean_init, grad_tile_size, strip_const_size)  
+  return render(request, 'deep_surfer/netparams.html')
 
 def index(request):
   latest_question_list = Question.objects.order_by('-pub_date')[:5] #last 5
