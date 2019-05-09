@@ -21,8 +21,8 @@ class Choice(models.Model):
     return choice_text
 
 class TextGeneratorParameterWeb(models.Model):
-    num_epochs= models.IntegerField(default=15)
-    num_generate=models.IntegerField(default=400)
+    num_epochs=models.IntegerField(default=15)
+    num_generate=models.IntegerField(default=800)
     temperature=models.IntegerField(default=1.0)
     trim_text = models.IntegerField(default=1)
     embedding_dim=models.IntegerField(default=128)

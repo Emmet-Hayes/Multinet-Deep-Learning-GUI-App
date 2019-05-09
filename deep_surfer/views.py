@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.urls import reverse
+from django.template import Template, Context
 from .models import Choice, Question
 from deep_surfer.nets.ImageClassifier import ImageClassifier
 from deep_surfer.nets.ImageGenerator import ImageGenerator
@@ -30,12 +31,16 @@ def tetris(request):
   return render(request, 'deep_surfer/tetris.html')
 
 def netparams(request):
-  return render(request, 'deep_surfer/netparams.html')
+  '''
+  fp = open('/deep_surfer/templates/deep_surfer/netparams.html')
+  t = Template(fp.read())
+  fp.close()
+  html = t.render(Context({'num_epochs' : 15, 'num_generate' : 400}))
+  return HttpResponse(html) 
+  '''
+  return render(request, 'deep_surfer/netparams.html', {'num_epochs':15, 'num_generate':400})
 
 def runTG(request):
-  train_epochs = get_object_or_404(TextGenerator, pk=tg_epochs)
-  num_generate = get_object_or_404(TextGenerator, pk=tg_gen)
-  temperature = get_object_or_404(TextGenerator, pk=tg_temp)
   TextGenerator.train_text_generator(self, train_epochs, num_generate, temperature,
       trim_text, embedding_dim, step_size, seq_length, BATCH_SIZE)
   return render(request, 'deep_surfer/netparams.html')

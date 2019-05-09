@@ -3,16 +3,25 @@
 <link rel="stylesheet" type="text/css" href="{% static 'deep_surfer/style.css' %}">
 <h1>Text Generator</h1>
 
-<button id="TGRun"><a href="runTextGenerator">Run Text Generator</a></button>
+<button id="TGRun"><a href="runTG">Run Text Generator</a></button>
 <button id="TGLoad"><a href="loadTG">Load Text Generator</a></button>
-   Number of Epochs: <p>{{ tg_epochs }}</p> <br>
-  Chars to Generate: <input type="number" placeholder="400" name="tg_gen"><br>
-        Temperature: <input type="number" placeholder="1.0" name="tg_temp"><br>
-          Trim Text: <input type="number" placeholder="1" name="tg_trim"><br>
-   Embed Dimensions: <input type="number" placeholder="128" name="tg_dims"><br> 
-          Step Size: <input type="number" placeholder="3" name="tg_step"><br>
-    Sequence Length: <input type="number" placeholder="40" name="tg_seq"><br>
-         Batch Size: <input type="number" placeholder="128" name="tg_batch"><br>
+<br>
+   Number of Epochs: <p> <input type="number" placeholder="{{ num_epochs }}" name="num_epochs"></p> <br>
+  Chars to Generate: <p> {{ num_generate }} </p><br>
+        Temperature: <p> {{ textGeneratorParameterWeb.temperature }} </p><br>
+          Trim Text: <p> {{ textGeneratorParameterWeb.trim_text }} </p><br>
+   Embed Dimensions: <p> {{ textGeneratorParameterWeb.embedding_dim }} </p><br> 
+          Step Size: <p> {{ textGeneratorParameterWeb.step_size }} </p><br>
+    Sequence Length: <p> {{ textGeneratorParameterWeb.seq_length }} </p><br>
+         Batch Size: <p> {{ textGeneratorParameterWeb.BATCH_SIZE }} </p><br>
+   <!-- Number of Epochs: <p><input type="number" placeholder="15" name="num_epochs" <br>
+  Chars to Generate: <p><input type="number" placeholder="400" name="num_generate" }} </p><br>
+        Temperature: <p><input type="temperature }} </p><br>
+          Trim Text: <p> {{ TextGeneratorParameterWeb.trim_text }} </p><br>
+   Embed Dimensions: <p> {{ TextGeneratorParameterWeb.embedding_dim }} </p><br> 
+          Step Size: <p> {{ TextGeneratorParameterWeb.step_size }} </p><br>
+    Sequence Length: <p> {{ TextGeneratorParameterWeb.seq_length }} </p><br>
+         Batch Size: <p> {{ TextGeneratorParameterWeb.BATCH_SIZE }} </p><br> -->
 <h1>{{ textGenOutput|safe }}</h1>
 <br/>
 <h1>Image Classifier</h1>

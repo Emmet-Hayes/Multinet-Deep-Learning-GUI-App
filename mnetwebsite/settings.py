@@ -59,7 +59,7 @@ ROOT_URLCONF = 'mnetwebsite.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [ 'deep_surfer/netparams.html'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
