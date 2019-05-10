@@ -8,18 +8,16 @@ from tensorflow.keras.layers import Dense, LSTM
 from tensorflow.keras import Sequential
 from tensorflow.keras.callbacks import LambdaCallback, ModelCheckpoint
 from tensorflow.keras.optimizers import RMSprop
-#import tensorflowjs as tfjs
-from PyQt5.QtWidgets import QFileDialog
 
 class TextGenerator:
+  text_collector = ''
   @staticmethod #saves the resulting model with lowest loss
-  def train_text_generator(notepadWidget, train_epochs=15, num_generate=400, temperature=1.0, trim_text=1, 
+  def train_text_generator(file_path = 'deep_surfer/nets/MultinetWindow.py', train_epochs=15, num_generate=400, temperature=1.0, trim_text=1, 
     embedding_dim=128, step_size=3, seq_length=40, BATCH_SIZE=128):
-    file_path = QFileDialog.getOpenFileName(notepadWidget, 'Open Text File', os.getenv('HOME'), "Text (*.txt, *.*)")
-    text = open(file_path[0], encoding="utf8", errors="ignore").read().lower()
+    text = open(file_path, encoding="utf8", errors="ignore").read().lower()
     print ('Length of text: {} characters'.format(len(text)))
     text = text[trim_text:-trim_text]
-
+    TextGenerator.text_collector = '' #Re-initialize
     chars = sorted(list(set(text)))
     char_indices = dict((c, i) for i, c in enumerate(chars))
     indices_char = dict((i, c) for i, c in enumerate(chars))
@@ -54,6 +52,7 @@ class TextGenerator:
       probas = np.random.multinomial(1, preds, 1)
       return np.argmax(probas)
 
+    text_collector = ''
     def on_epoch_end(epoch, _):
       # Function invoked at end of each epoch. Prints generated text.
       print('\n----- Generating text after Epoch: %d' % epoch)
@@ -76,7 +75,7 @@ class TextGenerator:
           sentence = sentence[1:] + next_char
           sys.stdout.write(next_char)
           sys.stdout.flush()
-        notepadWidget.text.append(generated)
+        TextGenerator.text_collector += generated
 
     ckpt_path = "deep_surfer/graphs/textgen-autosave.pb"
     ckpt = ModelCheckpoint(ckpt_path, monitor='loss', verbose=1, save_best_only=True, mode='min')
@@ -87,15 +86,15 @@ class TextGenerator:
     #tfjs.converters.save_keras_model(model, ckpt_path[:-2] + "h5")
     print("text generator is done. navigate back to the main window!")  
     sys.stdout.flush()
+    return TextGenerator.text_collector
 
-  @staticmethod #runs an lstm model, requires the source text
-  def run_text_generator(notepadWidget, num_generate=400, temperature=1.0, trim_text=1, embedding_dim=128, seq_length=40,
-    step_size=3):
-    file_path = QFileDialog.getOpenFileName(notepadWidget, 'Open Text File', os.getenv('HOME'), "Text (*.txt, *.*)")
-    text = open(file_path[0], encoding="utf8", errors="ignore").read().lower()
+  @staticmethod #runs an lstm model, requires the source text and model
+  def run_text_generator(file_path='deep_surfer/nets/MultinetWindow.py', ckpt_path='deep_surfer/graphs/textgen-autosave.pb',
+    num_generate=400, temperature=1.0, trim_text=1, embedding_dim=128, seq_length=40, step_size=3):
+    text = open(file_path, encoding="utf8", errors="ignore").read().lower()
     print ('Length of text: {} characters'.format(len(text)))
     text = text[trim_text:-trim_text]
-
+    TextGenerator.text_collector = '' #Re-initialize
     chars = sorted(list(set(text)))
     char_indices = dict((c, i) for i, c in enumerate(chars))
     indices_char = dict((i, c) for i, c in enumerate(chars))
@@ -113,14 +112,13 @@ class TextGenerator:
       for t, char in enumerate(sentence):
         x[i, t, char_indices[char]] = 1
         y[i, char_indices[next_chars[i]]] = 1
-    ckpt_path = QFileDialog.getOpenFileName(notepadWidget, 'Open Model File', os.getenv('HOME'), "Model Files (*.pb)")
     print('Build model...') # build the model: a single LSTM
     model = Sequential()
     model.add(LSTM(embedding_dim, input_shape=(seq_length, len(chars))))
     model.add(Dense(len(chars), activation='softmax'))
     optimizer = RMSprop(lr=0.01)
     model.compile(loss='categorical_crossentropy', optimizer=optimizer)
-    model.load_weights(ckpt_path[0])
+    model.load_weights(ckpt_path)
     
     def sample(preds, temperature=1.0):
       # helper function to sample an index from a probability array
@@ -151,6 +149,8 @@ class TextGenerator:
         sentence = sentence[1:] + next_char
         sys.stdout.write(next_char)
         sys.stdout.flush()
-      notepadWidget.text.append(generated)
+      #notepadWidget.text.append(generated)
+      TextGenerator.text_collector += generated
     print("text generator is done. please navigate back to the main window!")
     sys.stdout.flush()
+    return TextGenerator.text_collector

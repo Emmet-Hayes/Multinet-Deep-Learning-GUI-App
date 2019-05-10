@@ -1,75 +1,80 @@
 {% load static %}
-
 <link rel="stylesheet" type="text/css" href="{% static 'deep_surfer/style.css' %}">
-<h1>Text Generator</h1>
-
-<button id="TGRun"><a href="runTG">Run Text Generator</a></button>
-<button id="TGLoad"><a href="loadTG">Load Text Generator</a></button>
-<br>
-   Number of Epochs: <p> <input type="number" placeholder="{{ num_epochs }}" name="num_epochs"></p> <br>
-  Chars to Generate: <p> {{ num_generate }} </p><br>
-        Temperature: <p> {{ textGeneratorParameterWeb.temperature }} </p><br>
-          Trim Text: <p> {{ textGeneratorParameterWeb.trim_text }} </p><br>
-   Embed Dimensions: <p> {{ textGeneratorParameterWeb.embedding_dim }} </p><br> 
-          Step Size: <p> {{ textGeneratorParameterWeb.step_size }} </p><br>
-    Sequence Length: <p> {{ textGeneratorParameterWeb.seq_length }} </p><br>
-         Batch Size: <p> {{ textGeneratorParameterWeb.BATCH_SIZE }} </p><br>
-   <!-- Number of Epochs: <p><input type="number" placeholder="15" name="num_epochs" <br>
-  Chars to Generate: <p><input type="number" placeholder="400" name="num_generate" }} </p><br>
-        Temperature: <p><input type="temperature }} </p><br>
-          Trim Text: <p> {{ TextGeneratorParameterWeb.trim_text }} </p><br>
-   Embed Dimensions: <p> {{ TextGeneratorParameterWeb.embedding_dim }} </p><br> 
-          Step Size: <p> {{ TextGeneratorParameterWeb.step_size }} </p><br>
-    Sequence Length: <p> {{ TextGeneratorParameterWeb.seq_length }} </p><br>
-         Batch Size: <p> {{ TextGeneratorParameterWeb.BATCH_SIZE }} </p><br> -->
-<h1>{{ textGenOutput|safe }}</h1>
-<br/>
+<div id="TextGenStyle">
+  <h1>Text Generator</h1>
+  <br>
+  {% block content %}
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type="file" name="tgtxtfile">
+    <button type="submit" id="uploadTG">Upload Text File</button>
+  {% if tgtxt_file_url %}
+    <p>Text uploaded at: <a href="{{ tgtxt_file_url }}">{{ tgtxt_file_url }}</a></p>
+  {% endif %}
+  <br>
+  {% endblock %}
+  {% block content2 %}
+    {% csrf_token %}
+    <input type="file" name="tgmodfile">
+    <button type="submit" id="upmodelTG">Upload Model File</button>
+  </form>
+  {% if tgmod_file_url %}
+    <p>File uploaded at: <a href="{{ tgmod_file_url }}">{{ tgmod_file_url }}</a></p>
+  {% endif %} 
+  {% endblock %}
+  <br>
+  <button id="downmodelTG"><a href="downmodelTG">Download Trained Model</a></button>
+  <button id="trainTG"><a href="trainTG">Train Text Generator</a></button>
+  <button id="runTG"><a href="runTG">Run Text Generator</a></button>
+  <br>
+    <ul>
+      <li>Number of Epochs: <input type="number" placeholder="{{tg_epochs}}" name="num_epochs"></li><br>
+      <li>Chars to Generate: <input type="number" placeholder="{{tg_generate}}" name="num_generate"></li><br>
+      <li>Temperature: <input type="number" placeholder="{{tg_temper}}"></li><br>
+      <li>Sequence Length: <input type="number" placeholder="{{tg_seq}}"></li><br>
+    </ul>
+  <br>
 <h1>Image Classifier</h1>
-<button id="ICOpen"><a href="openIC">Open Image for Classification</a></button>
-<button id="ICOpenAlt"><a href="openICAlt">Open Image for Classification with Alternate Model</a></button>
-<button id="ICTrain"><a href="trainIC">Train Image Classifier on New data</a></button>
-<form action="{% ">
-     training steps: <input type="number" placeholder="4000" name="ic_steps"><br>
-      Learning Rate: <input type="number" placeholder="0.01" name="ic_lrate"><br>
-  Printing Misclass: <input type="text" placeholder="False" name="ic_mis"><br>
-Flip Left and Right: <input type="text" placeholder="False" name="ic_flip"><br>
-        Random Crop: <input type="number" placeholder="0" name="ic_rcrop"><br> 
-       Random Scale: <input type="number" placeholder="0" name="ic_rscale"><br>
-  Random Brightness: <input type="number" placeholder="0" name="ic_rbright"><br>
-</form>
+<button id="openIC"><a href="openIC">Upload Image for Classification</a></button>
+<button id="openICAlt"><a href="openICAlt">Upload Alternate Model</a></button>
+<button id="classifyIC"><a href="classifyIC">Classify Image</a></button>
+<button id="trainIC"><a href="trainIC">Train Image Classifier on New data</a></button>
+<br/>
+  <ul>
+     <li>training steps: <input type="number" placeholder="{{ic_steps}}"></li><br>
+     <li>Learning Rate: <input type="number" placeholder="{{ic_lrate}}"></li><br>
+     <li>Flip Left and Right: <input type="text" placeholder="{{ic_flip}}"></li><br>
+     <li>Random Crop/Scale/Brightness: <input type="number" placeholder="{{ic_random}}"></li><br>
+  </ul>
+<br/>
 <h1>{{ imageClassOutput }}</h1>
 <h1>Image Generator</h1>
-<button id="IGTrain"><a href="trainIG">Train Image Generator on New Data</button>
-<form action="{% ">
- Resize Side Length: <input type="number" placeholder="256" name="ig_slength"><br>
-             Height: <input type="number" placeholder="128" name="ig_sheight"><br>
-              Width: <input type="number" placeholder="128" name="ig_swidth"><br>
-           Channels: <input type="number" placeholder="3" name="ig_channels"><br>
-         Batch Size: <input type="number" placeholder="64" name="ig_batch"><br> 
-             Epochs: <input type="number" placeholder="1000" name="ig_epochs"><br>
-  Random Dimensions: <input type="number" placeholder="100" name="ig_rdims"><br>
-      Learning Rate: <input type="number" placeholder="2e-4" name="ig_lrate"><br>
-       Clip Weights: <input type="number" placeholder="0.01" name="ig_weights"><br>
-Discriminator Iters: <input type="number" placeholder="5" name="ig_diters"><br>
-    Generator Iters: <input type="number" placeholder="1" name="ig_giters"><br> 
-    Checkpoint Rate: <input type="number" placeholder="500" name="ig_crate"><br>
-    Save Image Rate: <input type="number" placeholder="50" name="ig_srate"><br>
-</form>
+
+
+<button id="uploadIG"><a href="uploadIG">Upload Image folder</a></button>
+<button id="downmodelIG>"><a href="downModelIG">Upload Generator Model</a></button>
+<button id="IGTrain"><a href="trainIG">Train Image Generator on New Data</a></button>
+<button id="IGdownload"><a href="downloadIG">Download Generated Photos</a></button>
+  <ul>
+    <li>Channels: <input type="number" placeholder="{{ig_channels}}" name="ig_channels"></li><br>
+    <li>Batch Size: <input type="number" placeholder="{{ig_batch}}"></li><br> 
+    <li>Epochs: <input type="number" placeholder="{{ig_epochs}}"></li><br>
+    <li>Random Dimensions: <input type="number" placeholder="{{ig_rdims}}"></li><br>
+    <li>Learning Rate: <input type="number" placeholder="{{ig_lrate}}"></li><br>
+    <li>Clip Weights: <input type="number" placeholder="{{ig_weights}}"></li><br>
+    <li>Discriminator Iters: <input type="number" placeholder="{{ig_diters}}"></li><br>
+    <li>Generator Iters: <input type="number" placeholder="{{ig_giters}}"></li><br> 
+    <li>Checkpoint Rate: <input type="number" placeholder="{{ig_crate}}"></li><br>
+    <li>Save Image Rate: <input type="number" placeholder="{{ig_srate}}"></li><br>
+  </ul>
 <iframe>{{ imageGenOutput }}</iframe>
 <h1>Deep Dream Generator</h1>
-<button id="DDRun"><a href="genDD">Generate Deep Dream</a></button>
-<form action="{% ">
-        Dream Layer: <input type="text" placeholder="mixed4c" name="dd_layer"><br>
-       Naive Render: <input type="number" placeholder="20" name="dd_nrender"><br>
-         Naive Step: <input type="number" placeholder="1.0" name="dd_nstep"><br>
-   Deep Render Iter: <input type="number" placeholder="10" name="dd_render"><br>
-          Deep Step: <input type="number" placeholder="1.5" name="dd_step"><br> 
-      Octave Number: <input type="number" placeholder="4" name="dd_octave"><br>
-      Octave Scaled: <input type="number" placeholder="1.4" name="dd_scaled"><br>
-           Downsize: <input type="number" placeholder="255.0" name="dd_size"><br>
-   Image Noise Size: <input type="number" placeholder="224" name="dd_noise"><br>
- Imagenet Mean Init: <input type="number" placeholder="117.0" name="dd_iminit"><br>
- Gradient Tile Size: <input type="number" placeholder="256" name="dd_gradts"><br> 
-   Strip Const Size: <input type="number" placeholder="32" name="dd_strcs"><br>
-</form>
+<button id="openDD"><a href="openDD">Upload Image for Deep Dream</a></button>
+<button id="runDD"><a href="genDD">Generate Deep Dream</a></button>
+  <ul>
+    <li>Dream Layer: <input type="text" placeholder="{{dd_layer}}"></li><br>
+    <li>Deep Render Iter: <input type="number" placeholder="{{dd_render}}"></li><br>
+    <li>Octave Number: <input type="number" placeholder="{{dd_octave}}"></li><br>
+    <li>Octave Scaled: <input type="number" placeholder="{{dd_scaled}}"></li><br>
+  </ul>
 <iframe>{{ deepDreamOutput }}</iframe>

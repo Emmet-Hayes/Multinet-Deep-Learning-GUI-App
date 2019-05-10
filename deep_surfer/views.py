@@ -7,15 +7,32 @@ from deep_surfer.nets.ImageClassifier import ImageClassifier
 from deep_surfer.nets.ImageGenerator import ImageGenerator
 from deep_surfer.nets.DeepDream import DeepDream
 from deep_surfer.nets.TextGenerator import TextGenerator
+from django.conf import settings
+from django.core.files.storage import FileSystemStorage
 #from deep_surfer.nets.MultinetWindow import MultinetWindow
 #from PyQt5.QtWidgets import QApplication
 import sys
 
-# THIS IS WHERE EVERYTHING GETS CALLED ON THE deep_surfer/mainapp/ page!!!!
+PARAMS = {'tg_epochs':15, 'tg_generate':400, 'tg_temper':1.0, 'tg_seq':40,
+    'ic_steps':4000, 'ic_lrate':0.01, 'ic_flip':False, 'ic_random':False,
+    'ig_channels':3, 'ig_batch':64, 'ig_epochs':1000, 'ig_rdims':100, 
+    'ig_lrate':2e-4, 'ig_weights':0.01, 'ig_diters':5, 'ig_giters':1,
+    'ig_crate':500, 'ig_srate':50, 'dd_layer':'mixed4b', 'dd_render':10,
+    'dd_octave':4, 'dd_scaled':1.4, 
+    'tgtxtfile':'/', 'tgmodfile':'/'}
+
+def simple_upload(request):
+    if request.method == 'POST' and request.FILES['myfile']:
+        myfile = request.FILES['myfile']
+        fs = FileSystemStorage()
+        filename = fs.save(myfile.name, myfile)
+        uploaded_file_url = fs.url(filename)
+        return render(request, 'deep_surfer/simple_upload.html', {
+            'uploaded_file_url': uploaded_file_url
+        })
+    return render(request, 'deep_surfer/simple_upload.html')
+
 def mainapp(request):
- # app = QApplication(sys.argv)
-#  labelWindow = MultinetWindow()
-#  sys.exit(app.exec_())
   return HttpResponse("Thanks for trying out my generator!\n")
 
 def games(request):
@@ -31,26 +48,39 @@ def tetris(request):
   return render(request, 'deep_surfer/tetris.html')
 
 def netparams(request):
+  dealwithuploads(request)
+  return render(request, 'deep_surfer/netparams.html', PARAMS)
+
+def dealwithuploads(request):
+  if request.method == 'POST' and request.FILES['tgtxtfile']:
+    upfile = request.FILES['tgtxtfile']
+    fs = FileSystemStorage()
+    filename = fs.save(upfile.name, upfile)
+    PARAMS['tgtxt_file_url'] = fs.url(filename)
+  elif request.method == 'POST' and request.FILES['tgmodfile']:
+    upfile = request.FILES['tgmodfile']
+    fs = FileSystemStorage()
+    filename = fs.save(upfile.name, upfile)
+    PARAMS['tgmod_file_url'] = fs.url(filename)
   '''
-  fp = open('/deep_surfer/templates/deep_surfer/netparams.html')
-  t = Template(fp.read())
-  fp.close()
-  html = t.render(Context({'num_epochs' : 15, 'num_generate' : 400}))
-  return HttpResponse(html) 
+  if 'tgtxtfile' in request.POST:
+    upfile = request.FILES.get('tgtxtfile')
+    fs = FileSystemStorage()
+    filename = fs.save(upfile.name, upfile)
+    PARAMS['tgtxtfile'] = fs.url(filename)
+  if 'tgmodfile' in request.POST:
+    upfile = request.FILES.get('tgmodfile')
+    fs = FileSystemStorage()
+    filename = fs.save(upfile.name, upfile)
+    PARAMS['tgmodfile'] = fs.url(filename)
   '''
-  return render(request, 'deep_surfer/netparams.html', {'num_epochs':15, 'num_generate':400})
+
+def trainTG(request):
+  return HttpResponse('Text Generator is Done!\n\n' + TextGenerator.train_text_generator())
 
 def runTG(request):
-  TextGenerator.train_text_generator(self, train_epochs, num_generate, temperature,
-      trim_text, embedding_dim, step_size, seq_length, BATCH_SIZE)
-  return render(request, 'deep_surfer/netparams.html')
-
-
-def loadTG(request):
-  TextGenerator.run_text_generator(self,
-        num_generate, temperature, trim_text, embedding_dim,
-        seq_length, step_size)
-  return render(request, 'deep_surfer/netparams.html')
+  return HttpResponse('Text Generator is Done!\n\n' + TextGenerator.run_text_generator())
+  #return render(request, 'deep_surfer/netparams.html', generatedText)
 
 def openIC(request):
   ImageClassifier.run_image_classifier(self, False)
