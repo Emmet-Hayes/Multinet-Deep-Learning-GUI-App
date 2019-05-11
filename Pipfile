@@ -1,0 +1,4 @@
+pipenv install opencv-contrib-python
+pipenv install Flask
+pipenv install gunicorn
+pipenv install numpy
