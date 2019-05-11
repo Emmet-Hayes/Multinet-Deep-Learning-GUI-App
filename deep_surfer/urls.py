@@ -18,10 +18,10 @@ from django.conf.urls.static import static
 '''
 #app_name = 'deep_surfer'
 
-base = 'deep_surfer'
-#if platform.system() is "Windows":
-#  base = '/'
-#  print(base)
+base = ''
+if platform.system() is "Windows":
+  base = '/'
+  print(base)
 #elif platform.system() is "Linux":
 #  base = 'deep_surfer'
 
