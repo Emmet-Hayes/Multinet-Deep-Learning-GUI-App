@@ -28,7 +28,7 @@ if platform.system() is "Windows":
 urlpatterns = [
     path(base, views.index, name='index'), #index is view func name
     path(base + 'index', views.index, name='index'),
-    url(r'^admin/', admin.site.urls),
+    #url(r'^admin/', admin.site.urls),
     path(base + 'trainTG', views.trainTG, name="trainTG"),
     path(base + 'runTG', views.runTG, name="runTG"),
     path(base + 'openIC', views.openIC, name="openIC"),
