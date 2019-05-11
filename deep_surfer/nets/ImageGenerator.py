@@ -5,7 +5,7 @@ import scipy.misc
 import cv2 #image manipulation imports
 from PIL import Image
 import tensorflow as tf #the deep learning good stuff
-from PyQt5.QtWidgets import QFileDialog #gui system file access
+#from PyQt5.QtWidgets import QFileDialog #gui system file access
 
 class ImageGenerator:
 
