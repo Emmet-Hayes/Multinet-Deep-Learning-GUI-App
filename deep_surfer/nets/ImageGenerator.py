@@ -11,10 +11,10 @@ class ImageGenerator:
 
   @staticmethod #resizes the folders of images to a square with side lengths passed
   def resize(notepadWidget, side_length=256):
-    src = QFileDialog.getExistingDirectory(notepadWidget, 
-      "Hint: Open a directory with image files in it", os.getenv('HOME'))
-    dst = QFileDialog.getExistingDirectory(notepadWidget, 
-      "Hint: Open a directory to save resized images in", os.getenv('HOME'))
+    #src = QFileDialog.getExistingDirectory(notepadWidget, 
+    #  "Hint: Open a directory with image files in it", os.getenv('HOME'))
+    #dst = QFileDialog.getExistingDirectory(notepadWidget, 
+    #  "Hint: Open a directory to save resized images in", os.getenv('HOME'))
     if not os.path.isdir(dst):
       os.mkdir(dst)
     for each in os.listdir(src):
@@ -24,10 +24,10 @@ class ImageGenerator:
 
   @staticmethod #removes the alpha channel from a folder of images
   def rgba2rgb(notepadWidget):
-    src = QFileDialog.getExistingDirectory(notepadWidget, 
-      "Hint: Open a directory with rgba image files in it", os.getenv('HOME'))
-    dst = QFileDialog.getExistingDirectory(notepadWidget, 
-      "Hint: Open a directory to save rgb images in", os.getenv('HOME'))
+    #src = QFileDialog.getExistingDirectory(notepadWidget, 
+    #  "Hint: Open a directory with rgba image files in it", os.getenv('HOME'))
+    #dst = QFileDialog.getExistingDirectory(notepadWidget, 
+    #  "Hint: Open a directory to save rgb images in", os.getenv('HOME'))
     if not os.path.isdir(dst):
       os.mkdir(dst)
     for each in os.listdir(src):
@@ -47,8 +47,8 @@ class ImageGenerator:
 
   @staticmethod #
   def process_data(notepadWidget, height=128, width=128, batch=64, channel=3):   
-    image_dir = QFileDialog.getExistingDirectory(notepadWidget, 
-      "Hint: Open a directory with resized rgb image files in it")
+    #image_dir = QFileDialog.getExistingDirectory(notepadWidget, 
+    #  "Hint: Open a directory with resized rgb image files in it")
     images = []
     try:
       for each in os.listdir(image_dir):

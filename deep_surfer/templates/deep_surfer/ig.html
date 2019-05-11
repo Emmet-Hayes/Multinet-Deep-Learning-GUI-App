@@ -1,0 +1,22 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'deep_surfer/style.css' %}">
+
+<h1>Image Generator</h1>
+
+<button id="uploadIG"><a href="uploadIG">Upload Image folder</a></button>
+<button id="downmodelIG>"><a href="downModelIG">Upload Generator Model</a></button>
+<button id="IGTrain"><a href="trainIG">Train Image Generator on New Data</a></button>
+<button id="IGdownload"><a href="downloadIG">Download Generated Photos</a></button>
+  <ul>
+    <li>Channels: <input type="number" placeholder="{{ig_channels}}" name="ig_channels"></li><br>
+    <li>Batch Size: <input type="number" placeholder="{{ig_batch}}"></li><br> 
+    <li>Epochs: <input type="number" placeholder="{{ig_epochs}}"></li><br>
+    <li>Random Dimensions: <input type="number" placeholder="{{ig_rdims}}"></li><br>
+    <li>Learning Rate: <input type="number" placeholder="{{ig_lrate}}"></li><br>
+    <li>Clip Weights: <input type="number" placeholder="{{ig_weights}}"></li><br>
+    <li>Discriminator Iters: <input type="number" placeholder="{{ig_diters}}"></li><br>
+    <li>Generator Iters: <input type="number" placeholder="{{ig_giters}}"></li><br> 
+    <li>Checkpoint Rate: <input type="number" placeholder="{{ig_crate}}"></li><br>
+    <li>Save Image Rate: <input type="number" placeholder="{{ig_srate}}"></li><br>
+  </ul>
+<iframe>{{ imageGenOutput }}</iframe>

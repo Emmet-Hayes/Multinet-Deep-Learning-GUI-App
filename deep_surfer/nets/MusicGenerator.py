@@ -1,7 +1,6 @@
 import os
 import tensorflow as tf
-from PyQt5.QtWidgets import QFileDialog
-from PyQt5.QtGui import QPixmap
+#from PyQt5.QtWidgets import QFileDialog
 from scipy.io import wavfile
 from scipy import signal
 import soundfile #convert 24 bit wav to 16 bit
@@ -183,10 +182,10 @@ class MusicGenerator:
     print("Done with performance rnn\n")
   '''
   @staticmethod
-  def wav_to_spectrogram(notepadwidget):
-    wav_tuple = QFileDialog.getOpenFileName(notepadwidget, "Open wav file", 
-      os.getenv('HOME'), "Audio (*.wav)")
-    wav_file = wav_tuple[0]
+  def wav_to_spectrogram(wav_file=''):
+    #wav_tuple = QFileDialog.getOpenFileName(notepadwidget, "Open wav file", 
+    #  os.getenv('HOME'), "Audio (*.wav)")
+    #wav_file = wav_tuple[0]
     data, samplerate = soundfile.read(wav_file[:-4] + '.wav') #converts to 16 bit wav
     soundfile.write(wav_file[:-4] + '16bit.wav', data, samplerate, subtype='PCM_16' )
     sound = AudioSegment.from_wav(wav_file[:-4] + '16bit.wav')

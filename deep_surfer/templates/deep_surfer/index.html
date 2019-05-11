@@ -1,29 +1,23 @@
 {% load static %}
-
 <link rel="stylesheet" type="text/css" href="{% static 'deep_surfer/style.css' %}">
-
-
-{% if latest_question_list %}
-    <ul>
-    {% for question in latest_question_list %}
-        <li><a href="{% url 'deep_surfer:detail' question.id %}">{{ question.question_text }}</a></li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No polls are available.</p>
-{% endif %}
-<br/>
 <body>
-  <br/>
+  <br>
   <p>Wanna play some fucking games bitch?</p>
-  <br/>
+  <br>
   <h1><a href="games">GAMES</a></h1>
-  <br/>
+  <br>
   <p>Wanna do some deep learning with my python app?</p>
-  <br/>
-  <h1><strong>ITS CALLED DEEP_SURFER!</strong></h1>
-  <br/>
-  <h1><a href="simple_upload">Try Simple Upload</a></h1>
-  <br/>
-  <h1><a href="netparams">GO HERE</a></h1>
+  <br>
+  <h1><strong>BUILD A BOT WORKSHOP</strong></h1>
+  <br>
+  <h1><a href="tg">Write me somthing Textbot</a></h1>
+  <br> 
+  <h1><a href="ic">Look through EyeBot</a><h1>
+  <br>
+  <h1><a href="dd">Trip with DreamBot</a><h1>
+  <br>
+  <h1><a href="ig">Generate with ImageBot</a></h1>
+  <br>
+  <h1><a href="">Jam with MusicBot</a></h1>
+  <br>
 </body>

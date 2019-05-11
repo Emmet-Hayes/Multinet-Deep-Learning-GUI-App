@@ -1,3 +1,5 @@
+'''
+'''
 import os
 import sys
 import random
@@ -52,16 +54,14 @@ class TextGenerator:
       probas = np.random.multinomial(1, preds, 1)
       return np.argmax(probas)
 
-    text_collector = ''
     def on_epoch_end(epoch, _):
       # Function invoked at end of each epoch. Prints generated text.
       print('\n----- Generating text after Epoch: %d' % epoch)
       start_index = random.randint(0, len(text) - seq_length - 1)
-      for diversity in [temperature/2., temperature]:
+      for diversity in [temperature, temperature]:
         print('\n----- diversity: %.1f \n' % diversity)
         generated = ''
         sentence = text[start_index: start_index + seq_length]
-        generated += sentence
         print('\n----- Generating with seed: "' + sentence + '"\n')
         sys.stdout.write(generated)
         for i in range(num_generate):
@@ -135,7 +135,6 @@ class TextGenerator:
       print('\n----- diversity: %.1f \n' % diversity)
       generated = ''
       sentence = text[start_index: start_index + seq_length]
-      generated += sentence
       print('\n----- Generating with seed: "' + sentence + '"\n')
       sys.stdout.write(generated)
       for i in range(num_generate):
@@ -149,7 +148,6 @@ class TextGenerator:
         sentence = sentence[1:] + next_char
         sys.stdout.write(next_char)
         sys.stdout.flush()
-      #notepadWidget.text.append(generated)
       TextGenerator.text_collector += generated
     print("text generator is done. please navigate back to the main window!")
     sys.stdout.flush()

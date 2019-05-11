@@ -1,3 +1,4 @@
+"""
 from PyQt5.QtGui import QColor, QIcon #GUI importz bb
 from PyQt5.QtWidgets import QTextEdit, QWidget, QPushButton, QVBoxLayout, QHBoxLayout, QFileDialog, QMainWindow, QAction, qApp, QLabel
 from PyQt5.QtCore import Qt
@@ -507,7 +508,7 @@ class MultinetWindow(QMainWindow): #Main Program window along with hidden popups
           "When prompted to open a folder, locate a folder of images that you would like the\n" +
           "Image Generator to train on. It will save produced images in the newImage folder.\n" +
           "\n\nIf you'd like to know more, look up Wasserstein Generative Adversarial Networks.")   
-      """Music Generators
+      Music Generators
       elif signal == '&Generate Drums':
         self.notepadWidget.use_music_generator(self.MGpopup.vae_checkpoint, self.MGpopup.vae_config_map, 
           self.MGpopup.vae_batch_size, self.MGpopup.vae_n, self.MGpopup.vae_length, self.MGpopup.vae_temperature)
@@ -525,7 +526,7 @@ class MultinetWindow(QMainWindow): #Main Program window along with hidden popups
         self.MGpopup.setUpdatesEnabled(True)
       elif signal == '&Play wav file':
         self.notepadWidget.play_wav()
-      """
+      
       '''
       elif signal == '&How to Generate Music...':
         self.notepadWidget.clear_all()
@@ -547,3 +548,4 @@ class MultinetWindow(QMainWindow): #Main Program window along with hidden popups
       "Tensorflow is under an Apache 2.0 License.\n" +
       "This is Version 0.1, version. It shouldn't be able to do anything that would crash\n" +
       "the program with the generalized exception rule above.")
+"""

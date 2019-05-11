@@ -6,9 +6,9 @@ from tensorflow.python.framework import graph_util
 import os, sys, re, random, hashlib
 from datetime import datetime
 from six.moves import urllib
-from PyQt5.QtWidgets import QFileDialog
-from PyQt5.QtGui import QPixmap
-from PyQt5.QtCore import Qt
+#from PyQt5.QtWidgets import QFileDialog
+#from PyQt5.QtGui import QPixmap
+#from PyQt5.QtCore import Qt
 
 MAX_NUM_IMAGES_PER_CLASS = 2 ** 27 - 1
 
@@ -683,15 +683,15 @@ class ImageClassifier:
 		return labels
 
 	@staticmethod #runs the classifier that was last trained or default
-	def run_image_classifier(notepadWidget, rerun=False):
-		file_tuple = QFileDialog.getOpenFileName(notepadWidget, 'Open Image', os.getenv('HOME'), "Images (*.png *.jpg *.bmp *.gif)")
-		file_path = file_tuple[0]
-		notepadWidget.text.append("thinking.. please wait.\n")
-		model_file, label_file = "deep_surfer/graphs/inception_v3_2016_08_28_frozen.pb", "deep_surfer/graphs/imagenet_slim_labels.txt"
+	def run_image_classifier(file_path='deep_surfer/icons/surfingsky.png', rerun=False, 
+		model_file='deep_surfer/graphs/inception_v3_2016_08_28_frozen.pb',
+		label_file='deep_surfer/graphs/imagenet_slim_labels.txt'):
+		text_output = 'thinking... please wait.\n'
+		#file_tuple = QFileDialog.getOpenFileName(notepadWidget, 'Open Image', os.getenv('HOME'), "Images (*.png *.jpg *.bmp *.gif)")
+		#file_path = file_tuple[0]
+		#notepadWidget.text.append("thinking.. please wait.\n")
+		#model_file, label_file = "deep_surfer/graphs/inception_v3_2016_08_28_frozen.pb", "deep_surfer/graphs/imagenet_slim_labels.txt"
 		input_height, input_width, input_mean, input_std = 299, 299, 0, 255
-		#input_width = 299
-		#input_mean = 0
-		#input_std = 255
 		input_layer = "input"
 		output_layer = "InceptionV3/Predictions/Reshape_1"
 
@@ -701,14 +701,14 @@ class ImageClassifier:
 			input_layer = "Mul"
 			output_layer = "final_result"
 		if rerun is True:
-			model_file = QFileDialog.getOpenFileName(notepadWidget, 'Model File', os.getenv('HOME'), "Model (*.pb)")[0]
-			label_file = QFileDialog.getOpenFileName(notepadWidget, 'Label File', os.getenv('HOME'), "Text (*.txt)")[0]
+			#model_file = QFileDialog.getOpenFileName(notepadWidget, 'Model File', os.getenv('HOME'), "Model (*.pb)")[0]
+			#label_file = QFileDialog.getOpenFileName(notepadWidget, 'Label File', os.getenv('HOME'), "Text (*.txt)")[0]
 			input_layer = "Mul"
 			output_layer = "final_result"
 		try:
-			inputImage = QPixmap(file_path)
-			scaledImage = inputImage.scaledToHeight(512)
-			notepadWidget.picture.setPixmap(scaledImage)
+			#inputImage = QPixmap(file_path)
+			#scaledImage = inputImage.scaledToHeight(512)
+			#notepadWidget.picture.setPixmap(scaledImage)
 			graph = ImageClassifier.load_graph(model_file)
 			t = ImageClassifier.read_tensor_from_image_file(file_path, input_height=input_height,
 				input_width=input_width, input_mean=input_mean, input_std=input_std)
@@ -722,21 +722,25 @@ class ImageClassifier:
 			top_k = results.argsort()[-5:][::-1]
 			labels = ImageClassifier.load_labels(label_file)
 			index = 0
-			notepadWidget.text.clear()
+			#notepadWidget.text.clear()
 			for i in top_k:
 				guess = str('My artificial brain is ' + "%.2f" % (results[i] * 100) + '% sure that this is an image of a')
 				if labels[i].startswith('a') or labels[i].startswith('e') or labels[i].startswith('i') or labels[i].startswith('o') or labels[i].startswith('u'): #if the image label first letter is a vowel
 					guess += 'n'
 				guess += ' ' + labels[i] + '.\n'
 				if index == 0: guess += 'This is my main guess.\n\n##################################################\n\n'
-				notepadWidget.text.append(guess)
+				#notepadWidget.text.append(guess)
+				text_output += guess
 				index += 1
+			return text_output
 		except FileNotFoundError:
-			notepadWidget.text.clear()
-			notepadWidget.text.append("File Not Found!\n{0}\n".format(file_path))
+			#notepadWidget.text.clear()
+			#notepadWidget.text.append("File Not Found!\n{0}\n".format(file_path))
+			text_output += "File Not Found!\n{0}\n".format(file_path)
 		except Exception as e:
-			notepadWidget.text.clear()
+			#notepadWidget.text.clear()
 			template = "Uh oh! an exception of type {0} occured. Arguments in the exception are :\n{1!r}"
 			message = template.format(type(e).__name__, e.args)
-			notepadWidget.text.append(message)
-			notepadWidget.text.setAlignment(Qt.AlignCenter)
+			text_output += message
+			#notepadWidget.text.append(message)
+			#notepadWidget.text.setAlignment(Qt.AlignCenter)

@@ -3,22 +3,23 @@ import numpy as np
 import cv2
 from PIL import Image
 import tensorflow as tf
-from PyQt5.QtWidgets import QFileDialog
-from PyQt5.QtGui import QPixmap
+#from PyQt5.QtWidgets import QFileDialog
+#from PyQt5.QtGui import QPixmap
 
 class DeepDream:
   @staticmethod #dream-effects an input image and saves it in the output location
-  def run(notepadWidget, dream_layer='mixed4b', naive_render_iter=20, naive_step=1.0, 
+  def run(file_path='deep_surfer/icons/surfingsky.png', dream_layer='mixed4b', naive_render_iter=20, naive_step=1.0, 
     deep_render_iter=10, deep_step=1.5, octave_number=4, octave_scaled=1.4, downsize=255.0,
     img_noise_size=224, imagenet_mean_init=117.0, grad_tile_size=256, strip_const_size=32):
-    file_tuple = QFileDialog.getOpenFileName(notepadWidget, 'Open File',
-      os.getenv('HOME'), "Images (*.png *.jpg)")
-    file_path = file_tuple[0]
+    #file_tuple = QFileDialog.getOpenFileName(notepadWidget, 'Open File',
+    #  os.getenv('HOME'), "Images (*.png *.jpg)")
+    #file_path = file_tuple[0]
     default_filename = file_path[:-4] + '-' + dream_layer + '.png'
-    dream_file = QFileDialog.getSaveFileName(notepadWidget, "Save Dream Image", 
-      default_filename, "Image (*.png)")
-    if file_path is '' or dream_file is '':
-      return QPixmap('deep_surfer/deepdreamdata/autosave/currentsave.png')
+#    dream_file = QFileDialog.getSaveFileName(notepadWidget, "Save Dream Image", 
+#      default_filename, "Image (*.png)")
+    dream_file = 'media/' + default_filename
+    #if file_path is '' or dream_file is '':
+    #  return QPixmap('deep_surfer/deepdreamdata/autosave/currentsave.png')
     data_dir = 'deep_surfer/deepdreamdata/'
     img_noise = np.random.uniform(size=(img_noise_size,img_noise_size,3)) + 100.0
     model_fn = 'tensorflow_inception_graph.pb'
@@ -161,4 +162,5 @@ class DeepDream:
     
     render_deepdream(tf.square(T(dream_layer)), img0) # Apply gradient ascent to chosen layer
     print("the deep dream has ended. navigate back to the main window!")
-    return QPixmap('deep_surfer/deepdreamdata/autosave/currentsave.png')
+    
+    #return QPixmap('deep_surfer/deepdreamdata/autosave/currentsave.png')

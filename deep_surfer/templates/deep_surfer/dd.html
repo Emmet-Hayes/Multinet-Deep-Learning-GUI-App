@@ -1,0 +1,12 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'deep_surfer/style.css' %}">
+<h1>Deep Dream Generator</h1>
+<button id="openDD"><a href="openDD">Upload Image for Deep Dream</a></button>
+<button id="runDD"><a href="genDD">Generate Deep Dream</a></button>
+  <ul>
+    <li>Dream Layer: <input type="text" placeholder="{{dd_layer}}"></li><br>
+    <li>Deep Render Iter: <input type="number" placeholder="{{dd_render}}"></li><br>
+    <li>Octave Number: <input type="number" placeholder="{{dd_octave}}"></li><br>
+    <li>Octave Scaled: <input type="number" placeholder="{{dd_scaled}}"></li><br>
+  </ul>
+<iframe>{{ deepDreamOutput }}</iframe>
