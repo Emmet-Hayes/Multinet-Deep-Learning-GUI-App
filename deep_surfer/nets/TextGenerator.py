@@ -74,7 +74,6 @@ class TextGenerator:
           generated += next_char
           sentence = sentence[1:] + next_char
           sys.stdout.write(next_char)
-          #sys.stdout.flush()
         TextGenerator.text_collector += generated
 
     ckpt_path = "deep_surfer/graphs/textgen-autosave.pb"
@@ -147,7 +146,6 @@ class TextGenerator:
         generated += next_char
         sentence = sentence[1:] + next_char
         sys.stdout.write(next_char)
-        #sys.stdout.flush()
       TextGenerator.text_collector += generated
     print("text generator is done. please navigate back to the main window!")
     sys.stdout.flush()
