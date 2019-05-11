@@ -17,33 +17,28 @@ from django.conf.urls.static import static
   name - names the URL  for reference elsewhere in django code
 '''
 
-base = ''
-if platform.system() is "Windows":
-  base = '/'
-  print(base)
-#else:
-#  base = 'deep_surfer/'
+
 
 urlpatterns = [
-    path(base, views.index, name='index'), #index is view func name
-    path(base + 'index', views.index, name='index'),
+    path('', views.index, name='index'), #index is view func name
+    path('index', views.index, name='index'),
     #url(r'^admin/', admin.site.urls),
-    path(base + 'trainTG', views.trainTG, name="trainTG"),
-    path(base + 'runTG', views.runTG, name="runTG"),
-    path(base + 'openIC', views.openIC, name="openIC"),
-    path(base + 'openICAlt', views.openICAlt, name="openICAlt"),
-    path(base + 'trainIC', views.trainIC, name="trainIC"),
-    path(base + 'trainIG', views.trainIG, name="trainIG"),
-    path(base + 'genDD', views.genDD, name="genDD"),
-    path(base + 'games/', views.games, name='games'),
-    path(base + 'games/chess', views.chess, name='chess'),
-    path(base + 'games/2048', views.twentyfourtyeight, name='twentyfortyeight'),
-    path(base + 'games/tetris', views.tetris, name='tetris'),
-    path(base + 'tg', views.tg, name="tg"),
-    path(base + 'ic', views.ic, name="ic"),
-    path(base + 'dd', views.dd, name="dd"),
-    path(base + 'ig', views.ig, name="ig"),
-    path(base + 'mg', views.mg, name="mg")
+    path('trainTG', views.trainTG, name="trainTG"),
+    path('runTG', views.runTG, name="runTG"),
+    path('openIC', views.openIC, name="openIC"),
+    path('openICAlt', views.openICAlt, name="openICAlt"),
+    path('trainIC', views.trainIC, name="trainIC"),
+    path('trainIG', views.trainIG, name="trainIG"),
+    path('genDD', views.genDD, name="genDD"),
+    path('games/', views.games, name='games'),
+    path('games/chess', views.chess, name='chess'),
+    path('games/2048', views.twentyfourtyeight, name='twentyfortyeight'),
+    path('games/tetris', views.tetris, name='tetris'),
+    path('tg', views.tg, name="tg"),
+    path('ic', views.ic, name="ic"),
+    path('dd', views.dd, name="dd"),
+    path('ig', views.ig, name="ig"),
+    path('mg', views.mg, name="mg")
 ]
 
 if settings.DEBUG:
