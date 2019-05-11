@@ -1,7 +1,7 @@
 from django.urls import path #defines a django path object
 from django.conf.urls import url
 from django.contrib import admin
-from . import views #.py
+from . import views
 import platform
 from django.conf import settings
 from django.conf.urls.static import static
@@ -16,16 +16,13 @@ from django.conf.urls.static import static
   kwargs - unused for now
   name - names the URL  for reference elsewhere in django code
 '''
-#app_name = 'deep_surfer'
 
 base = ''
 if platform.system() is "Windows":
   base = '/'
   print(base)
-else:
-  base = 'deep_surfer/'
-#elif platform.system() is "Linux":
-#  base = 'deep_surfer'
+#else:
+#  base = 'deep_surfer/'
 
 urlpatterns = [
     path(base, views.index, name='index'), #index is view func name

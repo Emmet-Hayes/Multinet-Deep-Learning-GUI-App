@@ -13,6 +13,6 @@ from django.urls import include, path
   name - names the URL for reference elsewhere in django code
 '''
 urlpatterns = [
-    path('deep_surfer', include('deep_surfer.urls')),
+    path('deep_surfer/', include('deep_surfer.urls')),
     path('admin', admin.site.urls),
 ]
