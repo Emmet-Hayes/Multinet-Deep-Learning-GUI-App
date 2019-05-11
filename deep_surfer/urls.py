@@ -18,12 +18,12 @@ from django.conf.urls.static import static
 '''
 #app_name = 'deep_surfer'
 
-base = ''
-if platform.system() is "Windows":
-  base = '/'
-  print(base)
-elif platform.system() is "Linux":
-  base = 'deep_surfer'
+base = 'deep_surfer'
+#if platform.system() is "Windows":
+#  base = '/'
+#  print(base)
+#elif platform.system() is "Linux":
+#  base = 'deep_surfer'
 
 urlpatterns = [
     path(base, views.index, name='index'), #index is view func name
