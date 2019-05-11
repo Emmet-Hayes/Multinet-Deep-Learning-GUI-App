@@ -22,6 +22,8 @@ base = ''
 if platform.system() is "Windows":
   base = '/'
   print(base)
+else:
+  base = 'deep_surfer/'
 #elif platform.system() is "Linux":
 #  base = 'deep_surfer'
 
