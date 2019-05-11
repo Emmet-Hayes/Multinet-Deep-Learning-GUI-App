@@ -16,20 +16,18 @@ from django.conf.urls.static import static
   kwargs - unused for now
   name - names the URL  for reference elsewhere in django code
 '''
-app_name = 'deep_surfer'
+#app_name = 'deep_surfer'
 
 base = ''
 if platform.system() is "Windows":
   base = '/'
   print(base)
-
+elif platform.system() is "Linux":
+  base = 'deep_surfer'
 
 urlpatterns = [
     path(base, views.index, name='index'), #index is view func name
     path(base + 'index', views.index, name='index'),
-    #path(base + '<int:question_id>/', views.detail, name='detail'),
-    #path(base + '<int:question_id>/results/', views.results, name='results'),
-    #path(base + '<int:question_id>/vote/', views.vote, name='vote'),
     url(r'^admin/', admin.site.urls),
     path(base + 'trainTG', views.trainTG, name="trainTG"),
     path(base + 'runTG', views.runTG, name="runTG"),
@@ -38,13 +36,10 @@ urlpatterns = [
     path(base + 'trainIC', views.trainIC, name="trainIC"),
     path(base + 'trainIG', views.trainIG, name="trainIG"),
     path(base + 'genDD', views.genDD, name="genDD"),
-    #path(base + 'mainapp/', views.mainapp, name='mainapp'),
-    #path(base + 'netparams/', views.netparams, name='netparams'),
     path(base + 'games/', views.games, name='games'),
     path(base + 'games/chess', views.chess, name='chess'),
     path(base + 'games/2048', views.twentyfourtyeight, name='twentyfortyeight'),
     path(base + 'games/tetris', views.tetris, name='tetris'),
-    #path(base + 'simple_upload', views.simple_upload, name='simple_upload'),
     path(base + 'tg', views.tg, name="tg"),
     path(base + 'ic', views.ic, name="ic"),
     path(base + 'dd', views.dd, name="dd"),
