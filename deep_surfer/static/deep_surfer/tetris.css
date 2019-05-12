@@ -1,25 +1,33 @@
 canvas {
     display: block;
     margin: auto;
+    margin-top: 30px;
     border: 1px solid black;
-    background-color: #6A3486;
+    background-color: rgba(106, 52, 134, 0.3);
 }
 
 #playbutton {
-    width: 100px;
-    height: 50px;
     display: block;
     margin: auto;
     margin-top: 10px;
-    font-family: Arial, sans-serif;
     font-size: 30px;
-    font-weight: bold;
-    background-color: white;
+    font-weight: 1000;
+    background-color: #6A3486;
     cursor: pointer;
+    color: #FF99EC;
 }
 
+p {
+    color: white;
+    text-align: center;
+}
 body {
     display: block;
-    margin: 5 auto;
-    background-color: #3A0456;
+    margin: auto;
+    background-image: url('./images/body1.png');
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    font-family: Arial, sans-serif;
 }

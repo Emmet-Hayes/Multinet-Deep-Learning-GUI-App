@@ -2,10 +2,15 @@
 html, body {
   margin: 0;
   padding: 0;
-  background: #fF99EC;
-  color: #954093;
-  font-family: "Clear Sans", "Helvetica Neue", Arial, sans-serif;
-  font-size: 18px; }
+  color: #FF99EC;
+  display: block;
+  font-family: "Source Sans Pro", "Open Sans", sans-serif;
+  background-image: url('../images/body1.png');
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
 /*
 #FF99EC
 #FFADF4
@@ -15,7 +20,11 @@ html, body {
 #A4209B
 */
 body {
-  margin: 80px 0; }
+  margin: 80px 0; 
+  text-align: center;
+
+
+}
 
 .heading:after {
   content: "";
@@ -56,11 +65,18 @@ h1.title {
 .scores-container {
   float: right;
   text-align: right; }
-
+/*
+#FF99EC
+#FFADF4
+#FFBDFA
+#954093
+#AF4CAC
+#A4209B
+*/
 .score-container, .best-container {
   position: relative;
   display: inline-block;
-  background: #bbada0;
+  background: #AF4CaC;
   padding: 15px 25px;
   font-size: 25px;
   height: 25px;
@@ -79,11 +95,11 @@ h1.title {
     font-size: 13px;
     line-height: 13px;
     text-align: center;
-    color: #eee4da; }
+    color: white; }
   .score-container .score-addition, .best-container .score-addition {
     position: absolute;
     right: 30px;
-    color: red;
+    color: pink;
     font-size: 25px;
     line-height: 25px;
     font-weight: bold;
@@ -144,6 +160,14 @@ hr {
 
   100% {
     opacity: 1; } }
+/*
+#FF99EC
+#FFADF4
+#FFBDFA
+#954093
+#AF4CAC
+#A4209B
+*/
 .game-container {
   margin-top: 40px;
   position: relative;
@@ -156,7 +180,7 @@ hr {
   -ms-user-select: none;
   -ms-touch-action: none;
   touch-action: none;
-  background: #bbada0;
+  background: #651063;
   border-radius: 6px;
   width: 500px;
   height: 500px;
@@ -227,7 +251,7 @@ hr {
   margin-right: 15px;
   float: left;
   border-radius: 3px;
-  background: rgba(238, 228, 218, 0.35); }
+  background: #752073; }
   .grid-cell:last-child {
     margin-right: 0; }
 
@@ -533,7 +557,7 @@ hr {
 
 .restart-button {
   display: inline-block;
-  background: #8f7a66;
+  background: #954093;
   border-radius: 3px;
   padding: 0 20px;
   text-decoration: none;

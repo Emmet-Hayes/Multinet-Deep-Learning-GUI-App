@@ -1,18 +1,10 @@
-body{
+html, body {
   display: block;
   margin-top: 60px;
   text-align: center;
-  background-image: url('../../../images/body1.png');
+  background-image: url('../images/body1.png');
   background-attachment: fixed;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-}
-
-#game {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    margin-top: -300px;
-    margin-left: -400px;
 }

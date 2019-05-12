@@ -1,17 +1,24 @@
 body {
 	width: 960px;
-	margin-left: auto;
-	margin-right: auto;
+  text-align: center;
+  display: block;
+  font-family: "Source Sans Pro", "Open Sans", sans-serif;
+  background-image: url('./images/body1.png');
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin-left: auto;
+  margin-right: auto;
+	color: white;
 
-	text-align: left;
-
-	font-size: 12pt;
-	font-family: Arial, sans-serif;
-	color: black;
-
-	background: #303030 repeat fixed url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAADCAYAAABWKLW/AAAAFUlEQVQImWNgYGD4D8UMDEgMFIH/AGu7Bfvz8g82AAAAAElFTkSuQmCC");
+	/*background: #303030 repeat fixed url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAADCAYAAABWKLW/AAAAFUlEQVQImWNgYGD4D8UMDEgMFIH/AGu7Bfvz8g82AAAAAElFTkSuQmCC");
+	*/
 }
-
+strong {
+	font-size: 24;
+	font-weight: 1000;
+}
 h1 {
 	text-transform: lowercase;
 	text-shadow: 0 1px 0 white;
@@ -19,17 +26,25 @@ h1 {
 	font-weight: bold;
 	font-size: 100%;
 
-	background: white;
+	background: rgba(117,32,115,0.7);
 	text-shadow: 0 0 5px black;
-
 	margin: 0;
 	padding: 14px;
 	border-top-left-radius: 14px;
 	border-top-right-radius: 14px;
 }
 
+ul {
+	list-style: none;
+}
+/*#FF99EC
+#FFADF4
+#FFBDFA
+#954093
+#AF4CAC
+#A4209B*/
 #content {
-	background: white;
+	background: rgba(149, 64, 147, 0.3);
 	padding: 14px 40px;
 }
 
@@ -57,15 +72,16 @@ h1 {
 }
 
 #moves {
-	border: 1px solid silver;
+	border: 3px solid purple;
 	border-radius: 14px;
 	width: 138px;
+	color: white;
 	/* max-width: 168px; */
 	padding: 5px;
 	padding-left: 15px;
 	float: right;
 	overflow: auto;
-	height: 688px;
+	height: auto;
 }
 
 #moves button {
@@ -79,7 +95,8 @@ h1 {
 }
 
 #footer {
-	background: white;
+	background: #752073;
+	opacity:0.7;
 	margin: 0;
 	padding: 14px;
 	border-bottom-left-radius: 14px;
@@ -109,7 +126,7 @@ h1 {
 }
 
 #chessboard table tr th {
-	background: silver;
+	background: #B090B0;
 	font-size: small;
 	font-weight: normal;
 }
@@ -147,25 +164,25 @@ h1 {
 
 #chessboard table tr td.light {
 	text-shadow: 0 0 10px black;
-	background: #E0E0E0;
-	background: -moz-linear-gradient(-45deg, #ffffff 0%, #c0c0c0 100%);
-	background: -webkit-gradient(linear, left top, right bottom, color-stop(0%, #ffffff), color-stop(100%, #c0c0c0));
-	background: -webkit-linear-gradient(-45deg, #ffffff 0%, #c0c0c0 100%);
-	background: -o-linear-gradient(-45deg, #ffffff 0%, #c0c0c0 100%);
-	background: -ms-linear-gradient(-45deg, #ffffff 0%, #c0c0c0 100%);
-	background: linear-gradient(135deg, white, silver);
+	background: #E0A0E0;
+	background: -moz-linear-gradient(-45deg, #ffffff 0%, #E0A0E0 100%);
+	background: -webkit-gradient(linear, left top, right bottom, color-stop(0%, #E0A0E0), color-stop(100%, #E0A0E0));
+	background: -webkit-linear-gradient(-45deg, #ffffff 0%, #E0A0E0 100%);
+	background: -o-linear-gradient(-45deg, #ffffff 0%, #E0A0E0 100%);
+	background: -ms-linear-gradient(-45deg, #ffffff 0%, #E0A0E0 100%);
+	background: linear-gradient(135deg, white, #E0A0E0);
 
 }
 
 #chessboard table tr td.dark {
 	text-shadow: 0 0 10px white;
-	background: #404040;
-	background: -moz-linear-gradient(-45deg, #808080 0%, #000000 100%);
-	background: -webkit-gradient(linear, left top, right bottom, color-stop(0%, #808080), color-stop(100%, #000000));
-	background: -webkit-linear-gradient(-45deg, #808080 0%, #000000 100%);
-	background: -o-linear-gradient(-45deg, #808080 0%, #000000 100%);
-	background: -ms-linear-gradient(-45deg, #808080 0%, #000000 100%);
-	background: linear-gradient(135deg, gray, black);
+	background: #602060;
+	background: -moz-linear-gradient(-45deg, #602060 0%, #000000 100%);
+	background: -webkit-gradient(linear, left top, right bottom, color-stop(0%, #B0B0B0), color-stop(100%, #000000));
+	background: -webkit-linear-gradient(-45deg, #602060 0%, #000000 100%);
+	background: -o-linear-gradient(-45deg, #602060 0%, #000000 100%);
+	background: -ms-linear-gradient(-45deg, #602060 0%, #000000 100%);
+	background: linear-gradient(135deg, #602060, black);
 }
 
 #chessboard table tr td div {
@@ -225,8 +242,8 @@ h1 {
 }
 
 #moves a {
-	color: gray;
-	font-size: 8pt;
+	color: #B0B0B0;
+	font-size: 12pt;
 	text-decoration: none;
 }
 
