@@ -51,8 +51,7 @@ def file_handler(request):
   for i, f in enumerate(upfiles):
     filename = fs.save(f.name, f)
     file_url = fs.url(filename)
-    if platform.system() is "Windows":
-      file_url = file_url[1:] #remove the / for windows
+    file_url = file_url[1:] #remove the / for windows
     file_list.append(file_url)
     PARAMS['file_url_' + str(i)] = file_list[i]
     print('value of file_url_' + str(i) + ': ' + str(PARAMS['file_url_' + str(i)]) + '\n')
