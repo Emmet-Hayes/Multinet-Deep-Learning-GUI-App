@@ -6,9 +6,6 @@ from tensorflow.python.framework import graph_util
 import os, sys, re, random, hashlib
 from datetime import datetime
 from six.moves import urllib
-#from PyQt5.QtWidgets import QFileDialog
-#from PyQt5.QtGui import QPixmap
-#from PyQt5.QtCore import Qt
 
 MAX_NUM_IMAGES_PER_CLASS = 2 ** 27 - 1
 
@@ -500,7 +497,7 @@ class ImageClassifier:
 		return jpeg_data, mul_image
 
 	@staticmethod #retrains and saves a new CNN image classifier with new top layers to the tmp directory.
-	def retrain_image_classifier(retrain_image_dir, notepadWidget, has_retrain_parameters=False, 
+	def retrain_image_classifier(retrain_image_dir, has_retrain_parameters=False, 
 		how_many_training_steps=4000, learning_rate=0.01, 
 		print_misclassified_test_images=False, flip_left_right=False, 
 		random_crop=0, random_scale=0, random_brightness=0):
@@ -519,11 +516,11 @@ class ImageClassifier:
 		bottleneck_dir = 'deep_surfer/tmp/bottleneck'
 		final_tensor_name = 'final_result'
 		architecture = 'inception_v3'
-		notepadWidget.text.append("Retraining image classifier, this might take a while...\n")
+		text_output = 'Retraining image classifier, this might take a while...\n'
 		ImageClassifier.prepare_file_system()
 		model_info = ImageClassifier.create_model_info(architecture)
 		if not model_info:
-			notepadWidget.text.append('Error: Did not recognize architecture parameter...')
+			text_output += 'Error: Did not recognize architecture parameter...'
 			return -1
 		ImageClassifier.maybe_download_and_extract(model_info['data_url'])
 		graph, bottleneck_tensor, resized_image_tensor = (
@@ -532,11 +529,10 @@ class ImageClassifier:
 			validation_percentage)
 		class_count = len(image_lists.keys())
 		if class_count == 0:
-			notepadWidget.text.append('Error: No valid folders of images found at ' + retrain_image_dir)
+			text_output += 'Error: No valid folders of images found at ' + retrain_image_dir
 			return -1
 		if class_count == 1:
-			notepadWidget.text.append('Only one valid folder of images found at ' + retrain_image_dir +
-				' - multiple classes are needed for classification.')
+			text_output += 'Only one valid folder of images found at ' + retrain_image_dir + ' - multiple classes are needed for classification.'
 			return -1
 		do_distort_images = ImageClassifier.should_distort_images(
 			flip_left_right, random_crop, random_scale, random_brightness)
@@ -616,8 +612,7 @@ class ImageClassifier:
 						and i > 0):
 					intermediate_file_name = (intermediate_output_graphs_dir +
 																		'intermediate_' + str(i) + '.pb')
-					notepadWidget.text.append('Save intermediate result to : ' +
-													intermediate_file_name)
+					text_output += 'Save intermediate result to: ' + intermediate_file_name
 					ImageClassifier.save_graph_to_file(sess, graph, intermediate_file_name)
 			test_bottlenecks, test_ground_truth, test_filenames = (
 					ImageClassifier.get_random_cached_bottlenecks(
@@ -629,8 +624,7 @@ class ImageClassifier:
 					[evaluation_step, prediction],
 					feed_dict={bottleneck_input: test_bottlenecks,
 										 ground_truth_input: test_ground_truth})
-			notepadWidget.text.append('Final test accuracy = %.1f%% (N=%d)' %
-											(test_accuracy * 100, len(test_bottlenecks)))
+			text_output += 'Final Test Accuracy = %.1f%% (N=%d)' % (test_accuracy * 100, len(test_bottlenecks))
 			if print_misclassified_test_images:
 				tf.logging.info('=== MISCLASSIFIED TEST IMAGES ===')
 				for i, test_filename in enumerate(test_filenames):
@@ -642,6 +636,7 @@ class ImageClassifier:
 			with gfile.FastGFile(output_labels, 'w') as f:
 				f.write('\n'.join(image_lists.keys()) + '\n')
 			print("image classifier is done training. navigate back to the main window!")
+		return text_output
 
 	@staticmethod #r a graph based on model file
 	def load_graph(model_file):
@@ -687,28 +682,14 @@ class ImageClassifier:
 		model_file='deep_surfer/graphs/inception_v3_2016_08_28_frozen.pb',
 		label_file='deep_surfer/graphs/imagenet_slim_labels.txt'):
 		text_output = 'thinking... please wait.\n'
-		#file_tuple = QFileDialog.getOpenFileName(notepadWidget, 'Open Image', os.getenv('HOME'), "Images (*.png *.jpg *.bmp *.gif)")
-		#file_path = file_tuple[0]
-		#notepadWidget.text.append("thinking.. please wait.\n")
-		#model_file, label_file = "deep_surfer/graphs/inception_v3_2016_08_28_frozen.pb", "deep_surfer/graphs/imagenet_slim_labels.txt"
 		input_height, input_width, input_mean, input_std = 299, 299, 0, 255
 		input_layer = "input"
 		output_layer = "InceptionV3/Predictions/Reshape_1"
 
-		if notepadWidget.has_been_retrained:
-			model_file = "deep_surfer/tmp/output_graph.pb"
-			label_file = "deep_surfer/tmp/output_labels.txt"
-			input_layer = "Mul"
-			output_layer = "final_result"
 		if rerun is True:
-			#model_file = QFileDialog.getOpenFileName(notepadWidget, 'Model File', os.getenv('HOME'), "Model (*.pb)")[0]
-			#label_file = QFileDialog.getOpenFileName(notepadWidget, 'Label File', os.getenv('HOME'), "Text (*.txt)")[0]
 			input_layer = "Mul"
 			output_layer = "final_result"
 		try:
-			#inputImage = QPixmap(file_path)
-			#scaledImage = inputImage.scaledToHeight(512)
-			#notepadWidget.picture.setPixmap(scaledImage)
 			graph = ImageClassifier.load_graph(model_file)
 			t = ImageClassifier.read_tensor_from_image_file(file_path, input_height=input_height,
 				input_width=input_width, input_mean=input_mean, input_std=input_std)
@@ -722,25 +703,18 @@ class ImageClassifier:
 			top_k = results.argsort()[-5:][::-1]
 			labels = ImageClassifier.load_labels(label_file)
 			index = 0
-			#notepadWidget.text.clear()
 			for i in top_k:
 				guess = str('My artificial brain is ' + "%.2f" % (results[i] * 100) + '% sure that this is an image of a')
 				if labels[i].startswith('a') or labels[i].startswith('e') or labels[i].startswith('i') or labels[i].startswith('o') or labels[i].startswith('u'): #if the image label first letter is a vowel
 					guess += 'n'
 				guess += ' ' + labels[i] + '.\n'
-				if index == 0: guess += 'This is my main guess.\n\n##################################################\n\n'
-				#notepadWidget.text.append(guess)
+				if index == 0: guess += 'This is my main guess.\n\n\n\n'
 				text_output += guess
 				index += 1
-			return text_output
 		except FileNotFoundError:
-			#notepadWidget.text.clear()
-			#notepadWidget.text.append("File Not Found!\n{0}\n".format(file_path))
 			text_output += "File Not Found!\n{0}\n".format(file_path)
 		except Exception as e:
-			#notepadWidget.text.clear()
 			template = "Uh oh! an exception of type {0} occured. Arguments in the exception are :\n{1!r}"
 			message = template.format(type(e).__name__, e.args)
 			text_output += message
-			#notepadWidget.text.append(message)
-			#notepadWidget.text.setAlignment(Qt.AlignCenter)
+		return text_output

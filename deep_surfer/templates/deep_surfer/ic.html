@@ -1,16 +1,48 @@
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'deep_surfer/style.css' %}">
-<h1>Image Classifier</h1>
-<button id="openIC"><a href="openIC">Upload Image for Classification</a></button>
-<button id="openICAlt"><a href="openICAlt">Upload Alternate Model</a></button>
-<button id="classifyIC"><a href="classifyIC">Classify Image</a></button>
-<button id="trainIC"><a href="trainIC">Train Image Classifier on New data</a></button>
-<br/>
-  <ul>
-     <li>training steps: <input type="number" placeholder="{{ic_steps}}"></li><br>
-     <li>Learning Rate: <input type="number" placeholder="{{ic_lrate}}"></li><br>
-     <li>Flip Left and Right: <input type="text" placeholder="{{ic_flip}}"></li><br>
-     <li>Random Crop/Scale/Brightness: <input type="number" placeholder="{{ic_random}}"></li><br>
-  </ul>
-<br/>
-<h1>{{ imageClassOutput }}</h1>
+{% block content %}
+<body>
+  <div id="ImageClassStyle">
+    <h1>Image Classifier</h1>
+    <br>
+    <form method="post" enctype="multipart/form-data">
+      <div id="uploads">
+        {% csrf_token %}
+        <input type="file" name="aifile">
+        <button type="submit">Upload Image for Classification</button><br><br>
+        {% csrf_token %}
+        <input type="file" name="aifile">
+        <button type="submit">PUT OPTIONAL BRAIN HERE</button><br>
+      </div>
+      {% if file_url_0 %}
+        <p>Image uploaded at: {{ file_url_0 }}</p><br>
+        <iframe src="{{ file_url_0 }}" width="300" height="300" align="middle"></iframe><br>
+      {% endif %}
+      {% if file_url_1 %}
+        <p>Model uploaded at: {{ file_url_1 }}</p><br>
+      {% endif %}
+      <div id="netfuncs">
+        <button><a href="classifyIC">Classify Image</a></button><br><br><!--
+        <button><a href="trainIC">Train Image Classifier on New data</a></button><br>-->
+      </div>
+      <!--
+      <ul id="netparams">
+        {% csrf_token %}
+        <li>training steps:               <input type="number" placeholder="{{ic_steps}}", name="ic_steps"></li><br>
+        {% csrf_token %}
+        <li>Learning Rate:                <input type="number" placeholder="{{ic_lrate}}", name="ic_lrate"></li><br>
+        {% csrf_token %}
+        <li>Flip Left and Right:          <input type="text" placeholder="{{ic_flip}}", name="ic_flip"></li><br>
+        {% csrf_token %}
+        <li>Random Crop/Scale/Brightness: <input type="number" placeholder="{{ic_random}}", name="ic_random"></li><br>
+      </ul>
+      -->
+      <br>
+      {% if ic_run_complete %}
+        <p>Here are my Guesses:<br>{{ ic_run_complete }}</p>
+      {% endif %}
+    </form>
+    <p>*training will be implemented soon!!
+  </div>
+</body>
+{% endblock %}

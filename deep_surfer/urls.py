@@ -22,11 +22,9 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('', views.index, name='index'), #index is view func name
     path('index', views.index, name='index'),
-    #url(r'^admin/', admin.site.urls),
     path('trainTG', views.trainTG, name="trainTG"),
     path('runTG', views.runTG, name="runTG"),
-    path('openIC', views.openIC, name="openIC"),
-    path('openICAlt', views.openICAlt, name="openICAlt"),
+    path('classifyIC', views.classifyIC, name="classifyIC"),
     path('trainIC', views.trainIC, name="trainIC"),
     path('trainIG', views.trainIG, name="trainIG"),
     path('genDD', views.genDD, name="genDD"),

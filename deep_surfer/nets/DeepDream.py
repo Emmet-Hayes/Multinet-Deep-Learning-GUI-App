@@ -3,28 +3,19 @@ import numpy as np
 import cv2
 from PIL import Image
 import tensorflow as tf
-#from PyQt5.QtWidgets import QFileDialog
-#from PyQt5.QtGui import QPixmap
 
 class DeepDream:
   @staticmethod #dream-effects an input image and saves it in the output location
   def run(file_path='deep_surfer/icons/surfingsky.png', dream_layer='mixed4b', naive_render_iter=20, naive_step=1.0, 
     deep_render_iter=10, deep_step=1.5, octave_number=4, octave_scaled=1.4, downsize=255.0,
     img_noise_size=224, imagenet_mean_init=117.0, grad_tile_size=256, strip_const_size=32):
-    #file_tuple = QFileDialog.getOpenFileName(notepadWidget, 'Open File',
-    #  os.getenv('HOME'), "Images (*.png *.jpg)")
-    #file_path = file_tuple[0]
-    default_filename = file_path[:-4] + '-' + dream_layer + '.png'
-#    dream_file = QFileDialog.getSaveFileName(notepadWidget, "Save Dream Image", 
-#      default_filename, "Image (*.png)")
-    dream_file = 'media/' + default_filename
-    #if file_path is '' or dream_file is '':
-    #  return QPixmap('deep_surfer/deepdreamdata/autosave/currentsave.png')
+    dream_file = file_path[:-4] + '-' + dream_layer + '.png'
     data_dir = 'deep_surfer/deepdreamdata/'
     img_noise = np.random.uniform(size=(img_noise_size,img_noise_size,3)) + 100.0
     model_fn = 'tensorflow_inception_graph.pb'
-    notepadWidget.text.append("Give me some time to dream...")
+    #notepadWidget.text.append("Give me some time to dream...")
     
+
     graph = tf.Graph() #Creating Tensorflow session and loading the model
     sess = tf.InteractiveSession(graph=graph)
     with tf.gfile.FastGFile(os.path.join(data_dir, model_fn), 'rb') as f:
@@ -34,8 +25,6 @@ class DeepDream:
     imagenet_mean = imagenet_mean_init
     t_preprocessed = tf.expand_dims(t_input-imagenet_mean, 0)
     tf.import_graph_def(graph_def, {'input':t_preprocessed})
-    #for op in graph.get_operations():
-      #print(op.name)
     layers = [op.name for op in graph.get_operations() if op.type=='Conv2D' and 'import/' in op.name]
     feature_nums = [int(graph.get_tensor_by_name(name+':0').get_shape()[-1]) for name in layers]
     
@@ -43,8 +32,6 @@ class DeepDream:
     print('Total number of feature channels:', sum(feature_nums))
     print('Dreaming...please wait...')
     print('zzzzz...')
-    # Helper functions for TF Graph visualization
-    #pylint: disable=unused-variable
     def strip_consts(graph_def, max_const_size=strip_const_size):
       """Strip large constant values from graph_def."""
       strip_def = tf.GraphDef()
@@ -132,7 +119,7 @@ class DeepDream:
 
     def render_deepdream(t_obj, img0=img_noise,
                iter_n=deep_render_iter, step=deep_step, octave_n=octave_number, 
-               octave_scale=octave_scaled, save_path=dream_file[0]):
+               octave_scale=octave_scaled, save_path=dream_file):
       t_score = tf.reduce_mean(t_obj) # defining the optimization objective
       t_grad = tf.gradients(t_score, t_input)[0] # behold the power of automatic differentiation!
 
@@ -162,5 +149,5 @@ class DeepDream:
     
     render_deepdream(tf.square(T(dream_layer)), img0) # Apply gradient ascent to chosen layer
     print("the deep dream has ended. navigate back to the main window!")
+    return dream_file
     
-    #return QPixmap('deep_surfer/deepdreamdata/autosave/currentsave.png')

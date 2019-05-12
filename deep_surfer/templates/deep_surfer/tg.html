@@ -1,36 +1,47 @@
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'deep_surfer/style.css' %}">
-<body>
 {% block content %}
+<body>
 <div id="TextGenStyle">
   <h1>Text Bot</h1>
   <br>
   <form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    <input type="file" name="tgfile">
-    <button type="submit" id="uploadTG">GIVE TEXTBOT TEXT</button>
-  {% if tg_file_url_0 %}
-    <p>Text uploaded at: {{ tg_file_url_0 }}</p>
-  {% endif %}
-  <br>
-    {% csrf_token %}
-    <input type="file" name="tgfile">
-    <button type="submit" id="upmodelTG">PUT OPTIONAL BRAIN HERE</button>
-  </form>
-  {% if tg_file_url_1 %}
-    <p>Model uploaded at: {{ tg_file_url_1 }}</p>
-  {% endif %} 
-  <br> 
-  <br>
-    <ul>
-      <li>Number of Epochs: <input type="number" placeholder="{{tg_epochs}}" name="num_epochs"></li><br>
-      <li>Chars to Generate: <input type="number" placeholder="{{tg_generate}}" name="num_generate"></li><br>
-      <li>Temperature: <input type="number" placeholder="{{tg_temper}}"></li><br>
-      <li>Sequence Length: <input type="number" placeholder="{{tg_seq}}"></li><br>
+    <div id="uploads">
+      {% csrf_token %}
+      <input type="file" name="aifile">
+      <button type="submit">GIVE TEXTBOT TEXT</button>
+      <br><br>
+      {% csrf_token %}
+      <input type="file" name="aifile">
+      <button type="submit">PUT OPTIONAL BRAIN HERE</button>
+      {% if file_url_0 %}
+        <p>Text uploaded at: {{ file_url_0 }}</p>
+      {% endif %}
+      {% if file_url_1 %}
+        <p>Model uploaded at: {{ file_url_1 }}</p>
+      {% endif %} 
+      <br><br>
+    </div>
+    <div id="netfuncs">
+      <button><a href="trainTG">GO TO SCHOOL textbot!</a></button>
+      <button><a href="runTG">WRITE FOR ME textbot!</a></button>
+    </div>
+    <ul id="netparams">
+      {% csrf_token %}
+      <li>Number of Epochs:  <input type="number" placeholder="{{tg_epochs}}" name="tg_epochs"></li><br>
+      {% csrf_token %}
+      <li>Chars to Generate: <input type="number" placeholder="{{tg_generate}}" name="tg_generate"></li><br>
+      {% csrf_token %}
+      <li>Temperature:       <input type="float" placeholder="{{tg_temper}}" name="tg_temper"></li><br>
+      {% csrf_token %}
+      <li>Sequence Length:   <input type="number" placeholder="{{tg_seq}}" name="tg_seq"></li><br>
     </ul>
-  <br>
-  <button id="trainTG"><a href="trainTG">GO TO SCHOOL textbot!</a></button>
-  <button id="runTG"><a href="runTG">WRITE FOR ME textbot!</a></button>
+    {% if tg_run_complete %}
+     <br><br><p> {{ tg_run_complete }}</p>
+    {% endif %}
+    <br>
+  </form>
+  <p>*Training will be implemented soon!
 </div>
-{% endblock %}
 </body>
+{% endblock %}
