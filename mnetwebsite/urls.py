@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import include, path
-
+from django.conf.urls.static import static
 '''
   ****path() is passed 4 args.****
   ****  only 2 are required   ****
@@ -14,5 +14,6 @@ from django.urls import include, path
 '''
 urlpatterns = [
     path('deep_surfer/', include('deep_surfer.urls')),
+    path('media/'),
     path('admin', admin.site.urls),
 ]
