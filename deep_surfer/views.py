@@ -117,15 +117,15 @@ def runTG(request):
     if all(k in PARAMS for k in ('file_url_0', 'file_url_1')):
       textfile = PARAMS['file_url_0']
       modelfile = PARAMS['file_url_1']
-      generated_text = TextGenerator.run_text_generator(textfile, modelfile, PARAMS['tg_epochs'],
-        PARAMS['tg_generate'], PARAMS['tg_temper'], seq_length = PARAMS['tg_seq'])
+      generated_text = TextGenerator.run_text_generator(textfile, modelfile,
+        PARAMS['tg_generate'], PARAMS['tg_temper'])
     elif 'file_url_0' in PARAMS:
       textfile = PARAMS['file_url_0']
-      generated_text = TextGenerator.run_text_generator(textfile, train_epochs = PARAMS['tg_epochs'],
-        num_generate=PARAMS['tg_generate'], temperature=PARAMS['tg_temper'], seq_length=PARAMS['tg_seq'])
+      generated_text = TextGenerator.run_text_generator(textfile,
+        num_generate=PARAMS['tg_generate'], temperature=PARAMS['tg_temper'])
     else:
-      generated_text = TextGenerator.run_text_generator(train_epochs=PARAMS['tg_epochs'],
-        num_generate=PARAMS['tg_generate'], temperature=PARAMS['tg_temper'], seq_length=PARAMS['tg_seq'])
+      generated_text = TextGenerator.run_text_generator(
+        num_generate=PARAMS['tg_generate'], temperature=PARAMS['tg_temper'])
     PARAMS['tg_run_complete'] = generated_text
   except ValueError as ve:
     PARAMS['tg_run_complete'] = 'This brain doesn\'t work with this text :(\n' + str(ve.args)
@@ -164,7 +164,7 @@ def classifyIC(request):
       imagefile = PARAMS['file_url_0']
       PARAMS['ic_run_complete'] = ImageClassifier.run_image_classifier(file_path=imagefile)
     else:
-      PARAMS['ic_run_failed'] ="no filed found to classify :(\n"
+      PARAMS['ic_run_failed'] ="no image file found to classify :(\n"
   except Exception as e:
     template = "An exception of type {0} occured. Arguments:\n{1!r}"
     message = template.format(type(e).__name__, e.args)
