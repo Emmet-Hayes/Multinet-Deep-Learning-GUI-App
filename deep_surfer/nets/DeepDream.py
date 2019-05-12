@@ -95,8 +95,11 @@ class DeepDream:
         return wrapper
       return wrap
 
+
     def resize(img, size):
+      #print('well...::' + str(img) + '\nsize: ' + str(size))
       img = tf.expand_dims(img, 0)
+      #print("this is going right")
       return tf.image.resize_bilinear(img, size)[0,:,:,:]
 
     resize = tffunc(np.float32, np.int32)(resize)
@@ -122,16 +125,20 @@ class DeepDream:
                octave_scale=octave_scaled, save_path=dream_file):
       t_score = tf.reduce_mean(t_obj) # defining the optimization objective
       t_grad = tf.gradients(t_score, t_input)[0] # behold the power of automatic differentiation!
-
+      print("made it here\b")
       # split the image into a number of octaves
       img = img0
       octaves = []
       for _ in range(octave_n-1):
         hw = img.shape[:2]
+        print("fuck\n")
         lo = resize(img, np.int32(np.float32(hw)/octave_scale))
+        print("me")
         hi = img-resize(lo, hw)
+        print("man")
         img = lo
         octaves.append(hi)
+        print("in the image octave split\n")
 
       for i, octave in enumerate(range(octave_n)): # generate details each octave
         if octave>0:
@@ -146,7 +153,7 @@ class DeepDream:
 
     img0 = cv2.imread(file_path) #open image
     img0 = np.float32(img0)
-    
+    #print("goin for it!\n")
     render_deepdream(tf.square(T(dream_layer)), img0) # Apply gradient ascent to chosen layer
     print("the deep dream has ended. navigate back to the main window!")
     return dream_file

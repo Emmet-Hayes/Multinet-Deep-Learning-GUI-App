@@ -36,7 +36,7 @@ urlpatterns = [
     path('ic', views.ic, name="ic"),
     path('dd', views.dd, name="dd"),
     path('ig', views.ig, name="ig"),
-    path('mg', views.mg, name="mg")
+    path('mg', views.mg, name="mg"),
 ]
 
 if settings.DEBUG:

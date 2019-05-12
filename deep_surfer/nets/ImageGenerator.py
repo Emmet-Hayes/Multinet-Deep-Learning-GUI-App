@@ -32,9 +32,9 @@ class ImageGenerator:
       os.mkdir(dst)
     for each in os.listdir(src):
       png = Image.open(os.path.join(src,each))
-      if png.mode == 'RGBA':
+      if png.mode == 'RGB':
         png.load() # required for png.split()
-        background = Image.new("RGB", png.size, (0,0,0))
+        background = Image.new("RGBA", png.size, (0,0,0,0))
         background.paste(png, mask=png.split()[3]) # 3 is the alpha channel
         background.save(os.path.join(dst,each.split('.')[0] + '.jpg'), 'JPEG')
       else:
