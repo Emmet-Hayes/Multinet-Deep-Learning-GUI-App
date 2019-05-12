@@ -13,7 +13,7 @@
       </div>
       {% if file_url_0 %}
         <p>Image uploaded at: {{ file_url_0 }}</p><br>
-        <iframe src="{{file_url_0}}" width="300" height="300" align="middle"></iframe><br>
+        <img src="{{file_url_0}}" align="middle"></img><br>
       {% endif %}
       <br><br>
       <div id="netfuncs"><button><a href="genDD">Generate Deep Dream</a></button><br></div>
@@ -29,7 +29,7 @@
       </ul>
       {% if dd_run_complete %}
         <p>Completed the deep dream. Here is your output.</p>
-        <iframe src="{{dd_run_complete}}" width="300" height="300" align="middle"></iframe>
+        <img src="{{dd_run_complete}}" align="middle"></img>
       {% endif %}
       {% if dd_run_failed %}
         <p>{{dd_run_failed}}</p>

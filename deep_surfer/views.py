@@ -108,7 +108,7 @@ def trainTG(request):
   except Exception as e:
     template = "An exception of type {0} occured. Arguments:\n{1!r}"
     message = template.format(type(e).__name__, e.args)
-    PARAMS['tg_run_complete'] = message + "\nsorry :("
+    PARAMS['tg_train_complete'] = message + "\nsorry :("
   return render(request, 'deep_surfer/tg.html', PARAMS)
 
 def runTG(request):
