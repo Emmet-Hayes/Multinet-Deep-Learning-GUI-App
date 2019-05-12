@@ -21,7 +21,6 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('', views.index, name='index'), #index is view func name
-    path('index', views.index, name='index'),
     path('trainTG', views.trainTG, name="trainTG"),
     path('runTG', views.runTG, name="runTG"),
     path('classifyIC', views.classifyIC, name="classifyIC"),

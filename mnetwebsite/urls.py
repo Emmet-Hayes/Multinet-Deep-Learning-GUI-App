@@ -14,6 +14,5 @@ from django.conf.urls.static import static
 '''
 urlpatterns = [
     path('deep_surfer/', include('deep_surfer.urls')),
-    path('media/', include('deep_surfer.urls')),
     path('admin', admin.site.urls),
 ]
