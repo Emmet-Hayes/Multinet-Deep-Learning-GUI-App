@@ -137,14 +137,14 @@ def runTG(request):
 def genDD(request):
   file_handler(request)
   try:
-  if 'file_url_0' in PARAMS:
-      imagefile = PARAMS['file_url_0']
-      generated_image = DeepDream.run(
-        file_path=imagefile)
-      PARAMS['dd_run_complete'] = generated_image
-  else:
-      print("no file found to generate on\n")
-      PARAMS['dd_run_failed'] = "no file found to generate on :(\n"
+    if 'file_url_0' in PARAMS:
+        imagefile = PARAMS['file_url_0']
+        generated_image = DeepDream.run(
+          file_path=imagefile)
+        PARAMS['dd_run_complete'] = generated_image
+    else:
+        print("no file found to generate on\n")
+        PARAMS['dd_run_failed'] = "no file found to generate on :(\n"
   except Exception as e:
     template = "An exception of type {0} occured. Arguments:\n{1!r}"
     message = template.format(type(e).__name__, e.args)
