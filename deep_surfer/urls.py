@@ -23,6 +23,7 @@ urlpatterns = [
     path('', views.index, name='index'), #index is view func name
     path('trainTG', views.trainTG, name="trainTG"),
     path('runTG', views.runTG, name="runTG"),
+    path('fanTG', views.fanTG, name="fanTG"), #collect wierd batman txt/pb files
     path('classifyIC', views.classifyIC, name="classifyIC"),
     path('trainIC', views.trainIC, name="trainIC"),
     path('trainIG', views.trainIG, name="trainIG"),

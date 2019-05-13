@@ -6,11 +6,11 @@
   <h1>Text Bot</h1>
   <br>
   <form method="post" enctype="multipart/form-data">
-    <div id="uploads">
+    <div id="uploads"> 
       {% csrf_token %}
       <input type="file" name="aifile">
       <button type="submit">GIVE TEXTBOT TEXT</button>
-      <br><br>
+      <br><br> <!--
       {% csrf_token %}
       <input type="file" name="aifile">
       <button type="submit">PUT OPTIONAL BRAIN HERE</button>
@@ -20,21 +20,23 @@
       {% if file_url_1 %}
         <p>Model uploaded at: {{ file_url_1 }}</p>
       {% endif %} 
-      <br><br>
+      <br><br> -->
     </div>
     <div id="netfuncs">
-      <!-- <button><a href="trainTG">GO TO SCHOOL textbot!</a></button> -->
-      <button><a href="runTG">WRITE FOR ME textbot!</a></button>
+      <br><!--
+      <button id="bigbutton"><a href="trainTG">Learn to WRITE like THIS FILE textbot!</a></button><br><br>-->
+      <button id="bigbutton"><a href="fanTG">WRITE WIERD BATMAN FANFICTION</a></button>
+      <button id="bigbutton"><a href="runTG">WRITE A MORMON GOSPEL textbot!</a></button>
     </div>
     <ul id="netparams">
       {% csrf_token %}
-      <li>Number of Epochs:  <input type="number" placeholder="{{tg_epochs}}" name="tg_epochs"></li><br>
+      <li>Number of Epochs:  <input type="number" value="{{tg_epochs}}" name="tg_epochs"></li><br>
       {% csrf_token %}
-      <li>Chars to Generate: <input type="number" placeholder="{{tg_generate}}" name="tg_generate"></li><br>
+      <li>Chars to Generate: <input type="number" value="{{tg_generate}}" name="tg_generate"></li><br>
       {% csrf_token %}
-      <li>Temperature:       <input type="float" placeholder="{{tg_temper}}" name="tg_temper"></li><br>
+      <li>Temperature:       <input type="float" value="{{tg_temper}}" name="tg_temper"></li><br>
       {% csrf_token %}
-      <li>Sequence Length:   <input type="number" placeholder="{{tg_seq}}" name="tg_seq"></li><br>
+      <li>Sequence Length:   <input type="number" value="{{tg_seq}}" name="tg_seq"></li><br>
     </ul>
     {% if tg_run_complete %}
      <br><br><p> {{ tg_run_complete }}</p>

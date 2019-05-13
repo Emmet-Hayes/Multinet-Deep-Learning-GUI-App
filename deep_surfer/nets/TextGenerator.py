@@ -90,6 +90,7 @@ class TextGenerator:
   @staticmethod #runs an lstm model, requires the source text and model
   def run_text_generator(file_path='deep_surfer/text/bom.txt', ckpt_path='deep_surfer/graphs/bom.pb',
     num_generate=400, temperature=1.0, trim_text=1, embedding_dim=128, seq_length=40, step_size=3):
+    print("file_path: " + file_path + "\n")
     text = open(file_path, encoding="utf8", errors="ignore").read().lower()
     print ('Length of text: {} characters'.format(len(text)))
     text = text[trim_text:-trim_text]

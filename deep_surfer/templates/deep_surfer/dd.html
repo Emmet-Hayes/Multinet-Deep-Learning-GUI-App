@@ -16,7 +16,7 @@
         <img src="{{file_url_0}}" align="middle"></img><br>
       {% endif %}
       <br><br>
-      <div id="netfuncs"><button><a href="genDD">Generate Deep Dream</a></button><br></div>
+      <div id="netfuncs"><button id="bigbutton"><a href="genDD">Generate Deep Dream</a></button><br></div>
       <ul id="netparams">
         {% csrf_token %}
         <li>Dream Layer:      <input type="text" placeholder="{{dd_layer}}" name="dd_layer"></li><br>

@@ -125,20 +125,15 @@ class DeepDream:
                octave_scale=octave_scaled, save_path=dream_file):
       t_score = tf.reduce_mean(t_obj) # defining the optimization objective
       t_grad = tf.gradients(t_score, t_input)[0] # behold the power of automatic differentiation!
-      print("made it here\b")
       # split the image into a number of octaves
       img = img0
       octaves = []
       for _ in range(octave_n-1):
         hw = img.shape[:2]
-        print("fuck\n")
         lo = resize(img, np.int32(np.float32(hw)/octave_scale))
-        print("me")
         hi = img-resize(lo, hw)
-        print("man")
         img = lo
         octaves.append(hi)
-        print("in the image octave split\n")
 
       for i, octave in enumerate(range(octave_n)): # generate details each octave
         if octave>0:
@@ -152,9 +147,23 @@ class DeepDream:
         print("in octave: %i" % i)
 
     img0 = cv2.imread(file_path) #open image
+    img0 = cv2.resize(img0,(int(400), int(400)))
     img0 = np.float32(img0)
     #print("goin for it!\n")
     render_deepdream(tf.square(T(dream_layer)), img0) # Apply gradient ascent to chosen layer
     print("the deep dream has ended. navigate back to the main window!")
     return dream_file
-    
+'''
+      @staticmethod #resizes the folders of images to a square with side lengths passed
+  def resize(notepadWidget, side_length=256):
+    #src = QFileDialog.getExistingDirectory(notepadWidget, 
+    #  "Hint: Open a directory with image files in it", os.getenv('HOME'))
+    #dst = QFileDialog.getExistingDirectory(notepadWidget, 
+    #  "Hint: Open a directory to save resized images in", os.getenv('HOME'))
+    if not os.path.isdir(dst):
+      os.mkdir(dst)
+    for each in os.listdir(src):
+      img = cv2.imread(os.path.join(src,each))
+      img = cv2.resize(img,(side_length,side_length))
+      cv2.imwrite(os.path.join(dst,each), img)
+''' 

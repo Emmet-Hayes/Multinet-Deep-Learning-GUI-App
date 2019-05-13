@@ -10,6 +10,7 @@ import os
 from django.db import models
 
 #this dict will holds all element to be looked up in the templates(html)
+#its called the CONTEXT. each page of this site technically has
 PARAMS = {'tg_epochs':15, 'tg_generate':400, 'tg_temper':1.0, 'tg_seq':40,
     'ic_steps':4000, 'ic_lrate':0.01, 'ic_flip':False, 'ic_random':False,
     'ig_channels':3, 'ig_batch':64, 'ig_epochs':1000, 'ig_rdims':100, 
@@ -99,10 +100,10 @@ def trainTG(request):
     if 'file_url_0'in PARAMS:
       textfile = PARAMS['file_url_0']
       generated_text = TextGenerator.train_text_generator(textfile,
-        PARAMS['tg_epochs'], PARAMS['tg_generate'], PARAMS['tg_temper'], seq_length = PARAMS['tg_seq'])
+        PARAMS['tg_epochs'], int(PARAMS['tg_generate']), float(PARAMS['tg_temper']), seq_length = PARAMS['tg_seq'])
     else:
       generated_text = TextGenerator.train_text_generator(train_epochs=PARAMS['tg_epochs'],
-        num_generate=PARAMS['tg_generate'], temperature=PARAMS['tg_temper'], seq_length=PARAMS['tg_seq'])
+        num_generate=int(PARAMS['tg_generate']), temperature=float(PARAMS['tg_temper']), seq_length=PARAMS['tg_seq'])
     PARAMS['tg_train_complete'] = generated_text
   except Exception as e:
     template = "An exception of type {0} occured. Arguments:\n{1!r}"
@@ -112,19 +113,20 @@ def trainTG(request):
 
 def runTG(request):
   file_handler(request)
+  param_handler(request)
   try:
     if all(k in PARAMS for k in ('file_url_0', 'file_url_1')):
       textfile = PARAMS['file_url_0']
       modelfile = PARAMS['file_url_1']
       generated_text = TextGenerator.run_text_generator(textfile, modelfile,
-        PARAMS['tg_generate'], PARAMS['tg_temper'])
+        int(PARAMS['tg_generate']), float(PARAMS['tg_temper']))
     elif 'file_url_0' in PARAMS:
       textfile = PARAMS['file_url_0']
       generated_text = TextGenerator.run_text_generator(textfile,
-        num_generate=PARAMS['tg_generate'], temperature=PARAMS['tg_temper'])
+        num_generate=int(PARAMS['tg_generate']), temperature=float(PARAMS['tg_temper']))
     else:
       generated_text = TextGenerator.run_text_generator(
-        num_generate=PARAMS['tg_generate'], temperature=PARAMS['tg_temper'])
+        num_generate=int(PARAMS['tg_generate']), temperature=float(PARAMS['tg_temper']))
     PARAMS['tg_run_complete'] = generated_text
   except ValueError as ve:
     PARAMS['tg_run_complete'] = 'This brain doesn\'t work with this text :(\n' + str(ve.args)
@@ -134,13 +136,23 @@ def runTG(request):
     PARAMS['tg_run_complete'] = message + "\nsorry :("
   return render(request, 'deep_surfer/tg.html', PARAMS)
 
+def fanTG(request):
+  param_handler(request)
+  print(str(PARAMS['tg_generate']) + str(PARAMS['tg_temper']))
+  generated_text = TextGenerator.run_text_generator('deep_surfer/text/fan.txt',
+    'deep_surfer/graphs/fan.pb', int(PARAMS['tg_generate']), float(PARAMS['tg_temper']))
+  PARAMS['tg_run_complete'] = generated_text
+  return render(request, 'deep_surfer/tg.html', PARAMS)
+
 def genDD(request):
   file_handler(request)
+  param_handler(request)
   try:
     if 'file_url_0' in PARAMS:
         imagefile = PARAMS['file_url_0']
-        generated_image = DeepDream.run(
-          file_path=imagefile)
+        generated_image = DeepDream.run(imagefile, PARAMS['dd_layer'], 
+          deep_render_iter=PARAMS['dd_render'], octave_number=PARAMS['dd_octave'], 
+          octave_scaled=PARAMS['dd_scaled'])
         PARAMS['dd_run_complete'] = generated_image
     else:
         print("no file found to generate on\n")

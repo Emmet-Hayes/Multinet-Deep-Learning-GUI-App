@@ -9,20 +9,20 @@
       <div id="uploads">
         {% csrf_token %}
         <input type="file" name="aifile">
-        <button type="submit">Upload Image for Classification</button><br><br>
+        <button type="submit">Upload Image for Classification</button><br><br> <!--
         {% csrf_token %}
         <input type="file" name="aifile">
-        <button type="submit">PUT OPTIONAL BRAIN HERE</button><br>
+        <button type="submit">PUT OPTIONAL BRAIN HERE</button><br> -->
       </div>
       {% if file_url_0 %}
         <p>Image uploaded at: {{ file_url_0 }}</p><br>
         <iframe src="{{ file_url_0 }}" width="300" height="300" align="middle"></iframe><br>
-      {% endif %}
+      {% endif %}<!--
       {% if file_url_1 %}
         <p>Model uploaded at: {{ file_url_1 }}</p><br>
-      {% endif %}
+      {% endif %} -->
       <div id="netfuncs">
-        <button><a href="classifyIC">Classify Image</a></button><br><br><!--
+        <button id="bigbutton"><a href="classifyIC">Classify Image</a></button><br><br><!--
         <button><a href="trainIC">Train Image Classifier on New data</a></button><br>-->
       </div>
       <!--

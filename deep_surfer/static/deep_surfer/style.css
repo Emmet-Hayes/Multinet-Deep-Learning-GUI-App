@@ -1,5 +1,5 @@
 a {
-  color: red;
+  color: #DCC3CF;
 }
 a:after {
   color: purple;
@@ -9,7 +9,7 @@ body {
   height: 100%;
   font-family: "Source Sans Pro", "Open Sans", sans-serif;
   color: white;
-  background: black url("images/background.png") no-repeat;
+  background: black url("images/body1.png") no-repeat;
   background-size: cover;
   background-attachment: fixed;
   background-position: center;
@@ -47,7 +47,7 @@ ul {
 }
 
 #uploads {
-  opacity:0.6;
+  opacity:0.8;
   padding-top: 40px;
   padding-bottom: 10px;
   margin: 10 auto;
@@ -60,7 +60,7 @@ ul {
 }
 
 #netparams {
-  opacity:0.3;
+  opacity:0.6;
   padding-top: 50px;
   padding-bottom: 10px;
   /*background-color: #063515; */
@@ -74,11 +74,11 @@ ul {
 }
 
 #netfuncs {
-  opacity:0.6;
   padding-top: 60px;
   padding-bottom: 10px;
   margin: 10 auto;
   position: relative;
+  display: inline-block;
   /*border: 3px solid #B16A6C;*/
 }
 
@@ -94,6 +94,12 @@ li {
 
 }
 
+#bigbutton {
+  width: 200px;
+  height: 100px;
+  font-size: 20px;
+  font-weight: 1000;
+}
 #mainpage {
 
 }
