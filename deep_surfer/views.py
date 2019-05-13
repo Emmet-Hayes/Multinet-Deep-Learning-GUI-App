@@ -29,7 +29,7 @@ def param_handler(request):
       PARAMS['tg_seq'] = request.POST.get('tg_seq')
     if request.POST.get('dd_layer'):
       PARAMS['dd_layer'] = request.POST.get('dd_layer')
-    if request.POST.get('dd_layer'):
+    if request.POST.get('dd_render'):
       PARAMS['dd_render'] = request.POST.get('dd_render')
     if request.POST.get('dd_octave'):
       PARAMS['dd_octave'] = request.POST.get('dd_octave')
@@ -50,11 +50,11 @@ def file_handler(request):
   fs = FileSystemStorage()
   for i, f in enumerate(upfiles):
     filename = fs.save(f.name, f)
-    file_url = fs.url(filename)
-    file_url = file_url[1:] #remove the / for windows
+    file_url = fs.url(filename)[1:]
     file_list.append(file_url)
     PARAMS['file_url_' + str(i)] = file_list[i]
     print('value of file_url_' + str(i) + ': ' + str(PARAMS['file_url_' + str(i)]) + '\n')
+
 def games(request):
   return render(request, 'deep_surfer/games.html')
 
@@ -136,7 +136,7 @@ def runTG(request):
 
 def genDD(request):
   file_handler(request)
-  #try:
+  try:
   if 'file_url_0' in PARAMS:
       imagefile = PARAMS['file_url_0']
       generated_image = DeepDream.run(
@@ -145,10 +145,10 @@ def genDD(request):
   else:
       print("no file found to generate on\n")
       PARAMS['dd_run_failed'] = "no file found to generate on :(\n"
-  #except Exception as e:
-  #  template = "An exception of type {0} occured. Arguments:\n{1!r}"
-  #  message = template.format(type(e).__name__, e.args)
-  #  PARAMS['dd_run_failed'] = message + "\nsorry :("
+  except Exception as e:
+    template = "An exception of type {0} occured. Arguments:\n{1!r}"
+    message = template.format(type(e).__name__, e.args)
+    PARAMS['dd_run_failed'] = message + "\nsorry :("
   return render(request, 'deep_surfer/dd.html', PARAMS)
 
 def classifyIC(request):
