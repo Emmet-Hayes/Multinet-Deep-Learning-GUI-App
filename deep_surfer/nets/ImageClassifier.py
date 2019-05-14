@@ -686,9 +686,11 @@ class ImageClassifier:
 		input_height, input_width, input_mean, input_std = 299, 299, 0, 255
 		input_layer = "input"
 		output_layer = "InceptionV3/Predictions/Reshape_1"
-		print("is this even called?")
+		#print("is this even called?")
 		img = cv2.imread(file_path)
-		img_resize = cv2.resize(img, (input_width, input_height))
+		#print("file_path: " + file_path)
+		img_resize = cv2.resize(img, (int(input_width), int(input_height)))
+		#print("always")
 		cv2.imwrite(file_path, img_resize)
 		if rerun is True:
 			input_layer = "Mul"
@@ -697,6 +699,7 @@ class ImageClassifier:
 			graph = ImageClassifier.load_graph(model_file)
 			t = ImageClassifier.read_tensor_from_image_file(file_path, input_height=input_height,
 				input_width=input_width, input_mean=input_mean, input_std=input_std)
+			print("made it here?")
 			input_name = "import/" + input_layer 
 			output_name = "import/" + output_layer
 			input_operation = graph.get_operation_by_name(input_name);

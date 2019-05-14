@@ -16,7 +16,7 @@
       </div>
       {% if file_url_0 %}
         <p>Image uploaded at: {{ file_url_0 }}</p><br>
-        <iframe src="{{ file_url_0 }}" width="300" height="300" align="middle"></iframe><br>
+        <img src="{{ file_url_0 }}" width="400" height="400" align="middle"></img><br>
       {% endif %}<!--
       {% if file_url_1 %}
         <p>Model uploaded at: {{ file_url_1 }}</p><br>
@@ -41,8 +41,12 @@
       {% if ic_run_complete %}
         <p>Here are my Guesses:<br>{{ ic_run_complete }}</p>
       {% endif %}
+      {% if ic_run_failed %}
+        <p>It failed. Sorry :(</p>
+      {% endif %}
     </form>
     <h6>*training will be implemented soon!! It's just so beefy and takes long, theres no way a free Heroku server could be able to do that.</h6>
   </div>
+  <h6><a href="reset">Reset</a></h6>
 </body>
 {% endblock %}

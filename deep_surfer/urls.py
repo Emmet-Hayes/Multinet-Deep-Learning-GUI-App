@@ -28,6 +28,7 @@ urlpatterns = [
     path('trainIC', views.trainIC, name="trainIC"),
     path('trainIG', views.trainIG, name="trainIG"),
     path('genDD', views.genDD, name="genDD"),
+    path('reset', views.reset, name="reset"),
     path('games/', views.games, name='games'),
     path('games/chess', views.chess, name='chess'),
     path('games/2048', views.twentyfourtyeight, name='twentyfortyeight'),

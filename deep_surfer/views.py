@@ -7,6 +7,7 @@ from deep_surfer.nets.TextGenerator import TextGenerator
 from django.core.files.storage import FileSystemStorage
 import platform
 import os
+import shutil
 from django.db import models
 
 #this dict will holds all element to be looked up in the templates(html)
@@ -54,7 +55,7 @@ def file_handler(request):
     file_url = fs.url(filename)[1:]
     file_list.append(file_url)
     PARAMS['file_url_' + str(i)] = file_list[i]
-    print('value of file_url_' + str(i) + ': ' + str(PARAMS['file_url_' + str(i)]) + '\n')
+    #print('value of file_url_' + str(i) + ': ' + str(PARAMS['file_url_' + str(i)]) + '\n')
 
 def games(request):
   return render(request, 'deep_surfer/games.html')
@@ -74,7 +75,7 @@ def tg(request):
   return render(request, 'deep_surfer/tg.html', PARAMS)
 
 def ic(request):
-  file_handler(request),
+  file_handler(request)
   param_handler(request)
   return render(request, 'deep_surfer/ic.html', PARAMS)
 
@@ -138,7 +139,7 @@ def runTG(request):
 
 def fanTG(request):
   param_handler(request)
-  print(str(PARAMS['tg_generate']) + str(PARAMS['tg_temper']))
+  #print(str(PARAMS['tg_generate']) + str(PARAMS['tg_temper']))
   generated_text = TextGenerator.run_text_generator('deep_surfer/text/fan.txt',
     'deep_surfer/graphs/fan.pb', int(PARAMS['tg_generate']), float(PARAMS['tg_temper']))
   PARAMS['tg_run_complete'] = generated_text
@@ -165,13 +166,15 @@ def genDD(request):
 
 def classifyIC(request):
   file_handler(request)
+  #print("path: " + PARAMS['file_url_0'])
+  #param_handler(request)
   try:
     if all(k in PARAMS for k in ('file_url_0', 'file_url_1')):
       imagefile = PARAMS['file_url_0']
       modelfile = PARAMS['file_url_1']
       PARAMS['ic_run_complete'] = ImageClassifier.run_image_classifier(file_path=imagefile,
         model_path=modelfile)
-    if 'file_url_0' in PARAMS:
+    elif 'file_url_0' in PARAMS:
       imagefile = PARAMS['file_url_0']
       PARAMS['ic_run_complete'] = ImageClassifier.run_image_classifier(file_path=imagefile)
     else:
@@ -193,6 +196,17 @@ def trainIG(request):
   ImageGenerator.train(self, height, width, channel, batch_size, epoch, random_dim, learn_rate, 
       clip_weights, d_iters, g_iters, save_ckpt_rate, save_img_rate)
   return render(request, 'deep_surfer/ig.html', PARAMS)
+
+def reset(request):
+  for each_file in os.listdir('media'):
+    file_path = os.path.join('media', each_file)
+    try:
+      if os.path.isfile(file_path):
+        os.unlink(file_path)
+      elif os.path.isdir(file_path): shutil.rmtree(file_path)
+    except Exception as e:
+      print(e)
+  return render(request, 'deep_surfer/index.html')
 
 def index(request):
   return render(request, 'deep_surfer/index.html')

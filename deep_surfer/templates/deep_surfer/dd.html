@@ -14,7 +14,7 @@
       </div>
       {% if file_url_0 %}
         <p>Image uploaded at: {{ file_url_0 }}</p><br>
-        <img src="{{file_url_0}}" align="middle"></img><br>
+        <img src="{{file_url_0}}" height="400" width="400" align="middle"></img><br>
       {% endif %}
       <br><br>
       <div id="netfuncs"><button id="bigbutton"><a href="genDD">Generate Deep Dream</a></button><br></div>
@@ -37,5 +37,6 @@
       {% endif %}
     </form>
   </div>
+  <h6><a href="reset">Reset</a></h6>
 </body>
 {% endblock %}
