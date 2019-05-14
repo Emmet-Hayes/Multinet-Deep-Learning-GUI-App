@@ -1,7 +1,0 @@
-  {% load static %}
-  <link rel="stylesheet" type="text/css" href="{% static 'deep_surfer/style.css' %}">
-  {% if tg_run_complete %}
-    <p>Finished Generating Text!</p><br><br>
-      <div id="generatedText"><p>{{tg_run_complete}}</p>
-      </div>
-  {% endif %}

@@ -20,13 +20,13 @@
       <div id="netfuncs"><button id="bigbutton"><a href="genDD">Generate Deep Dream</a></button><br></div>
       <ul id="netparams">
         {% csrf_token %}
-        <li>Dream Layer:      <input type="text" placeholder="{{dd_layer}}" name="dd_layer"></li><br>
+        <li>Dream Layer:      <input type="text" value="{{dd_layer}}" name="dd_layer"></li><br>
         {% csrf_token %}
-        <li>Deep Render Iter: <input type="number" placeholder="{{dd_render}}" name="dd_render"></li><br>
+        <li>Deep Render Iter: <input type="number" value="{{dd_render}}" name="dd_render"></li><br>
         {% csrf_token %}
-        <li>Octave Number:    <input type="number" placeholder="{{dd_octave}}" name="dd_octave"></li><br>
+        <li>Octave Number:    <input type="number" value="{{dd_octave}}" name="dd_octave"></li><br>
         {% csrf_token %}
-        <li>Octave Scaled:    <input type="number" placeholder="{{dd_scaled}}" name="dd_scaled"></li><br>
+        <li>Octave Scaled:    <input type="number" value="{{dd_scaled}}" name="dd_scaled"></li><br>
       </ul>
       {% if dd_run_complete %}
         <p>Completed the deep dream. Here is your output.</p>

@@ -151,8 +151,8 @@ def genDD(request):
     if 'file_url_0' in PARAMS:
         imagefile = PARAMS['file_url_0']
         generated_image = DeepDream.run(imagefile, PARAMS['dd_layer'], 
-          deep_render_iter=PARAMS['dd_render'], octave_number=PARAMS['dd_octave'], 
-          octave_scaled=PARAMS['dd_scaled'])
+          deep_render_iter=int(PARAMS['dd_render']), octave_number=int(PARAMS['dd_octave']), 
+          octave_scaled=float(PARAMS['dd_scaled']))
         PARAMS['dd_run_complete'] = generated_image
     else:
         print("no file found to generate on\n")

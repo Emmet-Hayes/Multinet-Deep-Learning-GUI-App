@@ -1,9 +1,0 @@
-{% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'deep_surfer/style.css' %}">
-{% block content %}
-{% if tg_train_complete %}
-  <p>Finished Training the TextBot!<br></p>
-  <p>Here is a new sample:<br></p>{{ tg_train_complete }}</p>
-{% endif %}
-<button id="downmodelTG"><a href="downmodelTG">Download Trained Model</a></button>
-{% endblock %}

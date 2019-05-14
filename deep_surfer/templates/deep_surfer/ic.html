@@ -3,9 +3,8 @@
 <link rel="shortcut icon" href="{% static 'deep_surfer/favicon.ico' %}"/>
 {% block content %}
 <body>
-  <div id="ImageClassStyle">
+  <div id="ImageClassStyle"><br>
     <h1>Image Classifier</h1>
-    <br>
     <form method="post" enctype="multipart/form-data">
       <div id="uploads">
         {% csrf_token %}
@@ -43,7 +42,7 @@
         <p>Here are my Guesses:<br>{{ ic_run_complete }}</p>
       {% endif %}
     </form>
-    <p>*training will be implemented soon!!
+    <h6>*training will be implemented soon!! It's just so beefy and takes long, theres no way a free Heroku server could be able to do that.</h6>
   </div>
 </body>
 {% endblock %}

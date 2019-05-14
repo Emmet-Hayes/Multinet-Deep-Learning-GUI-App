@@ -147,23 +147,10 @@ class DeepDream:
         print("in octave: %i" % i)
 
     img0 = cv2.imread(file_path) #open image
-    img0 = cv2.resize(img0,(int(400), int(400)))
+    #img0 = cv2.resize(img0,(int(400), int(400)))
     img0 = np.float32(img0)
     #print("goin for it!\n")
     render_deepdream(tf.square(T(dream_layer)), img0) # Apply gradient ascent to chosen layer
     print("the deep dream has ended. navigate back to the main window!")
+    sess.close()
     return dream_file
-'''
-      @staticmethod #resizes the folders of images to a square with side lengths passed
-  def resize(notepadWidget, side_length=256):
-    #src = QFileDialog.getExistingDirectory(notepadWidget, 
-    #  "Hint: Open a directory with image files in it", os.getenv('HOME'))
-    #dst = QFileDialog.getExistingDirectory(notepadWidget, 
-    #  "Hint: Open a directory to save resized images in", os.getenv('HOME'))
-    if not os.path.isdir(dst):
-      os.mkdir(dst)
-    for each in os.listdir(src):
-      img = cv2.imread(os.path.join(src,each))
-      img = cv2.resize(img,(side_length,side_length))
-      cv2.imwrite(os.path.join(dst,each), img)
-''' 
