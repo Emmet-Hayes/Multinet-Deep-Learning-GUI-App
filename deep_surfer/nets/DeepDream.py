@@ -1,7 +1,6 @@
 import os
 import numpy as np
 import cv2
-from PIL import Image
 import tensorflow as tf
 
 class DeepDream:

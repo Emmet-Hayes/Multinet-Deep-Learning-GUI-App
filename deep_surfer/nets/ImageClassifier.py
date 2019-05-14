@@ -689,7 +689,7 @@ class ImageClassifier:
 		#print("is this even called?")
 		img = cv2.imread(file_path)
 		#print("file_path: " + file_path)
-		img_resize = cv2.resize(img, (int(input_width), int(input_height)))
+		img_resize = cv2.resize(img, (200, 200))
 		#print("always")
 		cv2.imwrite(file_path, img_resize)
 		if rerun is True:
