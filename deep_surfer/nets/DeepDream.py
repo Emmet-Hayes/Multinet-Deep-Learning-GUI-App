@@ -147,7 +147,7 @@ class DeepDream:
         print("in octave: %i" % i)
 
     img0 = cv2.imread(file_path) #open image
-    img0 = cv2.resize(img0,(int(400), int(400)))
+    img0 = cv2.resize(img0,(int(300), int(300)))
     img0 = np.float32(img0)
     render_deepdream(tf.square(T(dream_layer)), img0) # Apply gradient ascent to chosen layer
     print("the deep dream has ended. navigate back to the main window!")
