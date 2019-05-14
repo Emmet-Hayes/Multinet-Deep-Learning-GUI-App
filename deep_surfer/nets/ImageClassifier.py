@@ -686,12 +686,6 @@ class ImageClassifier:
 		input_height, input_width, input_mean, input_std = 299, 299, 0, 255
 		input_layer = "input"
 		output_layer = "InceptionV3/Predictions/Reshape_1"
-		#print("is this even called?")
-		img = cv2.imread(file_path)
-		#print("file_path: " + file_path)
-		img_resize = cv2.resize(img, (200, 200))
-		#print("always")
-		cv2.imwrite(file_path, img_resize)
 		if rerun is True:
 			input_layer = "Mul"
 			output_layer = "final_result"
